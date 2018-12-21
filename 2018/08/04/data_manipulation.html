@@ -1,0 +1,663 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.5.0 -->
+<title>Data manipulation in rust (Part 1 : nalgebra) | Miso and Raclette programming</title>
+<meta name="generator" content="Jekyll v3.8.5" />
+<meta property="og:title" content="Data manipulation in rust (Part 1 : nalgebra)" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Introduction" />
+<meta property="og:description" content="Introduction" />
+<link rel="canonical" href="http://localhost:4000/2018/08/04/data_manipulation.html" />
+<meta property="og:url" content="http://localhost:4000/2018/08/04/data_manipulation.html" />
+<meta property="og:site_name" content="Miso and Raclette programming" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2018-08-04T00:00:00+09:00" />
+<script type="application/ld+json">
+{"description":"Introduction","@type":"BlogPosting","url":"http://localhost:4000/2018/08/04/data_manipulation.html","headline":"Data manipulation in rust (Part 1 : nalgebra)","dateModified":"2018-08-04T00:00:00+09:00","datePublished":"2018-08-04T00:00:00+09:00","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/2018/08/04/data_manipulation.html"},"@context":"http://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/assets/main.css"><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="Miso and Raclette programming" /></head>
+<body><header class="site-header" role="banner">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/">Miso and Raclette programming</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">Data manipulation in rust (Part 1 : nalgebra)</h1>
+    <p class="post-meta">
+      <time class="dt-published" datetime="2018-08-04T00:00:00+09:00" itemprop="datePublished">Aug 4, 2018
+      </time></p>
+  </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <h2 id="introduction">Introduction</h2>
+
+<p>I am writing this blog for two main reasons. First, I
+am using Rust and I would love to see it used more in the scientific
+community.  However, the lack of documentation and guidance toward
+scientific crates is I think refraining more widespread adoption. So,
+let’s be the change I wanted to see! Second, by writing small
+documentions about scientific crates and how they interact together I
+am hoping to discover new crates and to familiarize myself with
+writing scientific code in Rust. I am usually using Python to
+prototype everything but it may be good to be able to do it sometime
+in Rust also!</p>
+
+<p>In this first post I will describe the basic need we have when
+beginning to do scientific computation: manipulating data.  Usually,
+when I am in Python I am using numpy which is the standard way to do
+it. Most Python module made for science are also using numpy which is
+really convenient to glue everything together. In Rust we do not have
+(yet!) a standard numerical crate. The reason is that the language is
+still young and many want to experiment with their own
+implementations. It is for me rather unfortunate but this is the
+current reality. The upside is that we have specialized crates
+tailored for our needs! I found two main crates that I think are of
+high qualities and answer different user cases: <strong>ndarray</strong> and
+<strong>nalgebra</strong>. ndarray is the equivalent of numpy while nalgebra aims to
+provide tools to manipulates matrices and vectors. I wanted to present
+both crates in one post but it would have resulted in a very long
+post. Instead my first post is about nalgebra and I will post a second
+one on ndarray later.</p>
+
+<p>Please note that as I could obviously not describe all the different
+crates in this post I focused only on nalgebra and ndarray. It does
+not mean that I think the other crates are not worthwhile but simply I
+needed to make a choice and I presented what I thought was the most
+popular choices.</p>
+
+<h2 id="nalgebra-when-you-only-want-matrices-and-vectors">nalgebra: When you only want matrices and vectors</h2>
+
+<p>Having arrays with multiple dimensions is common but many times
+manipulating vectors and matrices is the only thing you want. In these
+situations the nalgebra crate is perfect for you. This crate has been
+created with the underlying goal to be used for general linear algebra
+operations and computer graphics. As such, this crate is really
+optimal for manipulating matrices and vector representing geometrical
+transformations. This crate has a really beautiful
+<a href="http://nalgebra.org">documentation</a> and reading it is necessary to
+discover all the features the crate provides. However, I feel like
+when you are discovering the crate coming from a Python world (or
+other programming languages less strict than Rust) it is a bit
+confusing at first. How do you create and manipulate matrices? How do
+you use the factorizations explained in the documentaion? This post
+aims to give an easy start for beginners wanting to try nalgebra.</p>
+
+<h3 id="vectormatrix-types">Vector/Matrix types</h3>
+<p>Creating a matrix or a vector in nalgebra is not difficult but we need
+to be clear on what we want to create before doing it. The most
+significant choice is if the matrix or vector that we want to create
+has a column/row size determined in compile time. The more information
+you give to the compiler and the more your code could be optimized. In
+Rust, a lot of things are done during compilation and, as such, the
+code we write has to be correct (which is a bothering point for lot of
+Rust newcomers). The remaining information needed is the type of the
+elements inside the matrix.</p>
+
+<p>Because there are many possible type for your matrix, you have to
+specify manually which type you want to use. For the smallest
+dimension nalgebra got you covered. Indeed, there are inside the crate
+many alias made for you to avoid specifying the types of matrix with
+dimensions lesser than 6. For example, here is how to create two
+matrices of size 2x4 and 5x6.</p>
+
+<figure class="highlight"><pre><code class="language-rust" data-lang="rust"><span class="k">extern</span> <span class="n">crate</span> <span class="n">nalgebra</span> <span class="k">as</span> <span class="n">na</span><span class="p">;</span>
+<span class="k">use</span> <span class="nn">na</span><span class="p">::{</span><span class="n">Matrix2x4</span><span class="p">,</span> <span class="n">Matrix5x6</span><span class="p">};</span>
+
+<span class="k">let</span> <span class="n">m1</span> <span class="o">=</span> <span class="nn">Matrix2x4</span><span class="p">::</span><span class="nf">new</span><span class="p">(</span><span class="mf">2.3</span><span class="p">,</span> <span class="mf">10.9</span><span class="p">,</span> <span class="err">-</span><span class="mf">5.7</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span>
+                        <span class="mf">1.5</span><span class="p">,</span> <span class="err">-</span><span class="mf">1.4</span><span class="p">,</span> <span class="mf">0.48</span><span class="p">,</span> <span class="mf">8.9</span><span class="p">);</span>
+<span class="k">let</span> <span class="n">m2</span> <span class="o">=</span> <span class="nn">Matrix5x6</span><span class="p">::</span><span class="nf">new</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="err">-</span><span class="mi">3</span><span class="p">,</span> <span class="err">-</span><span class="mi">2</span><span class="p">,</span> <span class="err">-</span><span class="mi">1</span><span class="p">,</span>
+                        <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="err">-</span><span class="mi">6</span><span class="p">,</span> <span class="err">-</span><span class="mi">5</span><span class="p">,</span> <span class="err">-</span><span class="mi">4</span><span class="p">,</span>
+                        <span class="mi">7</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">9</span><span class="p">,</span> <span class="err">-</span><span class="mi">9</span><span class="p">,</span> <span class="err">-</span><span class="mi">8</span><span class="p">,</span> <span class="err">-</span><span class="mi">7</span><span class="p">,</span>
+                        <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="err">-</span><span class="mi">6</span><span class="p">,</span> <span class="err">-</span><span class="mi">5</span><span class="p">,</span> <span class="err">-</span><span class="mi">4</span><span class="p">,</span>
+                        <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="err">-</span><span class="mi">3</span><span class="p">,</span> <span class="err">-</span><span class="mi">2</span><span class="p">,</span> <span class="err">-</span><span class="mi">1</span><span class="p">);</span></code></pre></figure>
+
+<p>And here is how to create two vectors of size 2 and 4.</p>
+
+<figure class="highlight"><pre><code class="language-rust" data-lang="rust"><span class="k">extern</span> <span class="n">crate</span> <span class="n">nalgebra</span> <span class="k">as</span> <span class="n">na</span><span class="p">;</span>
+<span class="k">use</span> <span class="nn">na</span><span class="p">::{</span><span class="n">Vector2</span><span class="p">,</span> <span class="n">Vector4</span><span class="p">};</span>
+
+<span class="k">let</span> <span class="n">v1</span> <span class="o">=</span> <span class="nn">Vector2</span><span class="p">::</span><span class="nf">new</span><span class="p">(</span><span class="mf">1.4</span><span class="p">,</span> <span class="err">-</span><span class="mf">1.0</span><span class="p">);</span>
+<span class="k">let</span> <span class="n">v2</span> <span class="o">=</span> <span class="nn">Vector4</span><span class="p">::</span><span class="nf">new</span><span class="p">(</span><span class="err">-</span><span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span></code></pre></figure>
+
+<p>Note that these matrices and vectors have their dimension known at
+compile time. There is no alias for a matrix of 4 rows and not known
+at compile time column number for example.</p>
+
+<p>What about bigger vector and matrices? Well you will have to define
+their types. And remember that a vector is just a matrix with one row
+or one column. Creating a new matrix type is not difficult, we need to
+specify the type of the data we want to store (<em>i32</em>, <em>f64</em>…), the
+number of rows and columns, and finally giving the buffer that will
+contain all the matrix components.</p>
+
+<p>However there is one catch. As of today (August 4th, 2018) we cannot
+parametrize a type over integer values, which mean that to
+differentiate two matrix types we cannot use numbers (even hard-coded
+in compile time). This is clearly not ergonomic but people are
+<a href="https://github.com/rust-lang/rust/issues/44580">working on it</a>! To
+circumvent the problem the nalgebra crate created 127 types for you
+named <em>U1</em> to <em>U127</em>.</p>
+
+<p>So for example here is what we could write if we want to create a new
+matrix type representing matrix of integer with 4 rows and 27 columns.</p>
+
+<figure class="highlight"><pre><code class="language-rust" data-lang="rust"><span class="k">extern</span> <span class="n">crate</span> <span class="n">nalgebra</span> <span class="k">as</span> <span class="n">na</span><span class="p">;</span>
+<span class="k">use</span> <span class="nn">na</span><span class="p">::{</span><span class="n">Matrix</span><span class="p">,</span> <span class="n">U4</span><span class="p">,</span> <span class="n">U27</span><span class="p">,</span> <span class="n">MatrixArray</span><span class="p">};</span>
+
+<span class="k">type</span> <span class="n">MyMatrixType</span> <span class="o">=</span> <span class="n">Matrix</span><span class="o">&lt;</span><span class="nb">i32</span><span class="p">,</span> <span class="n">U4</span><span class="p">,</span> <span class="n">U27</span><span class="p">,</span> <span class="n">MatrixArray</span><span class="o">&lt;</span><span class="nb">i32</span><span class="p">,</span> <span class="n">U4</span><span class="p">,</span> <span class="n">U27</span><span class="o">&gt;&gt;</span><span class="p">;</span></code></pre></figure>
+
+<p>As you can see, the buffer we used is a <em>MatrixArray</em> one. It is an
+array which means its size is determined at compile time. So what
+about if you only know the size of your matrix when running your
+program (like a matrix made from the result of another program) ?</p>
+
+<p><em>EDIT (December 22, 2018): The author of nalgebra told me that there was
+an easier way to create your matrix type. Following the previous
+example we can omit to specify the buffer if we use the *MatrixMN* type.</em></p>
+
+<figure class="highlight"><pre><code class="language-rust" data-lang="rust"><span class="k">extern</span> <span class="n">crate</span> <span class="n">nalgebra</span> <span class="k">as</span> <span class="n">na</span><span class="p">;</span>
+<span class="k">use</span> <span class="nn">na</span><span class="p">::{</span><span class="n">MatrixMN</span><span class="p">,</span> <span class="n">U4</span><span class="p">,</span> <span class="n">U27</span><span class="p">};</span>
+
+<span class="k">type</span> <span class="n">MyMatrixType</span> <span class="o">=</span> <span class="n">MatrixMN</span><span class="o">&lt;</span><span class="nb">i32</span><span class="p">,</span> <span class="n">U4</span><span class="p">,</span> <span class="n">U27</span><span class="o">&gt;</span><span class="p">;</span></code></pre></figure>
+
+<p><em>Which is far more elegant!</em></p>
+
+<p>If you do not know anything about the size of your
+vector/matrix then you can use the alias <em>DVector</em> / <em>DMatrix</em>.</p>
+
+<figure class="highlight"><pre><code class="language-rust" data-lang="rust"><span class="k">use</span> <span class="nn">na</span><span class="p">::{</span><span class="n">DVector</span><span class="p">,</span> <span class="n">DMatrix</span><span class="p">};</span>
+
+<span class="k">let</span> <span class="n">v</span> <span class="o">=</span> <span class="nn">DVector</span><span class="p">::</span><span class="nf">from_row_slice</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="o">&amp;</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">]);</span>
+<span class="c">// We need the type annotation to specify the scalar type (here f32)</span>
+<span class="k">let</span> <span class="n">m</span><span class="p">:</span> <span class="n">DMatrix</span><span class="o">&lt;</span><span class="nb">f32</span><span class="o">&gt;</span> <span class="o">=</span> <span class="nn">DMatrix</span><span class="p">::</span><span class="nf">identity</span><span class="p">(</span><span class="mi">205</span><span class="p">,</span><span class="mi">18</span><span class="p">);</span></code></pre></figure>
+
+<p>Note that in this case we cannot simply use the <em><strong>new</strong></em> method as the
+compiler would have no idea of which dimension is the matrix. We
+instead need to initialize the matrix with different methods that
+requires extra parameters to specify the dimensions.</p>
+
+<p>What if you know the row dimension at compile time but not the column
+dimension (or the opposite) ? In this case you can create your matrix
+type by using the <em>Dynamic</em> type.</p>
+
+<figure class="highlight"><pre><code class="language-rust" data-lang="rust"><span class="k">extern</span> <span class="n">crate</span> <span class="n">nalgebra</span> <span class="k">as</span> <span class="n">na</span><span class="p">;</span>
+<span class="k">use</span> <span class="nn">na</span><span class="p">::{</span><span class="n">Matrix</span><span class="p">,</span> <span class="n">U49</span><span class="p">,</span> <span class="n">Dynamic</span><span class="p">,</span> <span class="n">MatrixVec</span><span class="p">};</span>
+
+<span class="k">type</span> <span class="n">MyMatrixType</span> <span class="o">=</span> <span class="n">Matrix</span><span class="o">&lt;</span><span class="nb">f64</span><span class="p">,</span> <span class="n">U49</span><span class="p">,</span> <span class="n">Dynamic</span><span class="p">,</span> <span class="n">MatrixVec</span><span class="o">&lt;</span><span class="nb">f64</span><span class="p">,</span> <span class="n">U49</span><span class="p">,</span><span class="n">Dynamic</span><span class="o">&gt;&gt;</span><span class="p">;</span></code></pre></figure>
+
+<p>We created a new matrix type with 49 rows and a dynamical number of
+columns of 64 bits floats. Because the matrix is dynamically allocated
+we cannot use the <em>MatrixArray</em> buffer, instead we are using the
+<em>MatrixVec</em> one.</p>
+
+<p><em>EDIT (December 22, 2018): Again, we do not need to declare the buffer type.</em></p>
+
+<figure class="highlight"><pre><code class="language-rust" data-lang="rust"><span class="k">extern</span> <span class="n">crate</span> <span class="n">nalgebra</span> <span class="k">as</span> <span class="n">na</span><span class="p">;</span>
+<span class="k">use</span> <span class="nn">na</span><span class="p">::{</span><span class="n">MatrixMN</span><span class="p">,</span> <span class="n">U49</span><span class="p">,</span> <span class="n">Dynamic</span><span class="p">};</span>
+
+<span class="k">type</span> <span class="n">MyMatrixType</span> <span class="o">=</span> <span class="n">MatrixMN</span><span class="o">&lt;</span><span class="nb">f64</span><span class="p">,</span> <span class="n">U49</span><span class="p">,</span> <span class="n">Dynamic</span><span class="o">&gt;</span><span class="p">;</span></code></pre></figure>
+
+<h3 id="the-different-ways-to-initialize">The different ways to initialize</h3>
+<p>There are many ways to initialize matrices and we will not cover
+everything here. Instead we will only see the most common one.</p>
+
+<h4 id="zeros">Zeros</h4>
+<p>The most common initialization would be to have a matrix
+filled of zeros. It is of course simple to do it in nalgebra but there
+is a small catch. Because Rust needs to know the type of the element
+of the matrix at compile time it will try to infer it from your
+code. However, if you program incrementaly you may first just
+initialize your matrix and later add the computation that will use
+it. In this case you will need to give a type annotation to tell the
+Rust compiler which it is dealing with.</p>
+
+<figure class="highlight"><pre><code class="language-rust" data-lang="rust"><span class="k">let</span> <span class="n">m1</span> <span class="p">:</span> <span class="n">Matrix7x5</span><span class="o">&lt;</span><span class="nb">i32</span><span class="o">&gt;</span> <span class="o">=</span> <span class="nn">Matrix7x5</span><span class="p">::</span><span class="nf">zeros</span><span class="p">();</span>
+
+<span class="c">// We need to precise the number of rows and columns in the dynamic case.</span>
+<span class="k">let</span> <span class="n">m2</span> <span class="p">:</span> <span class="nn">DMatrix</span><span class="p">::</span><span class="o">&lt;</span><span class="nb">u8</span><span class="o">&gt;</span> <span class="o">=</span> <span class="nn">DMatrix</span><span class="p">::</span><span class="nf">zeros</span><span class="p">(</span><span class="mi">42</span><span class="p">,</span> <span class="mi">51</span><span class="p">);</span></code></pre></figure>
+
+<h4 id="identical-value">Identical value</h4>
+<p>When you want to initialize your matrix with the
+same element you can simply use the <em><strong>from_element</strong></em> method.</p>
+
+<figure class="highlight"><pre><code class="language-rust" data-lang="rust"><span class="k">let</span> <span class="n">m1</span> <span class="o">=</span> <span class="nn">Matrix3x5</span><span class="p">::</span><span class="nf">from_element</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+
+<span class="c">// We need to precise the number of rows and columns in the dynamic case.</span>
+<span class="k">let</span> <span class="n">m2</span> <span class="o">=</span> <span class="nn">DMatrix</span><span class="p">::</span><span class="nf">from_element</span><span class="p">(</span><span class="mi">27</span><span class="p">,</span> <span class="mi">162</span><span class="p">,</span> <span class="mf">5.78</span><span class="p">);</span></code></pre></figure>
+
+<h4 id="identity">Identity</h4>
+<p>A lot of time we need to have an identity matrix and it would be
+bothersome to write all the values by ourselves. You can instead just
+use the <em><strong>identiy</strong></em> method which will handle it for you. You can even
+use it for non square matrices but it will set only the largest square
+submatrix as the identity, the rest will be filled by 0.</p>
+
+<figure class="highlight"><pre><code class="language-rust" data-lang="rust"><span class="k">let</span> <span class="n">m1</span> <span class="o">=</span> <span class="nn">Matrix4</span><span class="p">::</span><span class="nf">identity</span><span class="p">();</span>
+<span class="cm">/* m1 = (1.0, 0.0, 0.0, 0.0,
+         0.0, 1.0, 0.0, 0.0,
+         0.0, 0.0, 1.0, 0.0,
+         0.0, 0.0, 0.0, 1.0)
+*/</span>
+
+<span class="k">let</span> <span class="n">m2</span> <span class="o">=</span> <span class="nn">Matrix3x6</span><span class="p">::</span><span class="nf">identity</span><span class="p">();</span>
+<span class="cm">/* m2 = (1.0, 0.0, 0.0, 0.0, 0.0, 0.0,
+         0.0, 1.0, 0.0, 0.0, 0.0, 0.0,
+         0.0, 0.0, 1.0, 0.0, 0.0, 0.0) 
+*/</span>
+
+<span class="c">// We need to precise the number of rows and columns in the dynamic case.</span>
+<span class="k">let</span> <span class="n">m3</span> <span class="o">=</span> <span class="nn">DMatrix</span><span class="p">::</span><span class="nf">identity</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span><span class="mi">2</span><span class="p">);</span>
+<span class="cm">/* m3 = (1.0, 0.0,
+         0.0, 1.0,
+         0.0, 0.0,
+         0.0, 0.0)
+*/</span></code></pre></figure>
+
+<h4 id="from-an-iterator">From an iterator</h4>
+<p>In Rust iterators are really convenient and easy to use. It is
+possible that you will get your matrix values from one so nalgebra
+gives you the <em><strong>from_iterator</strong></em> method. Here is a simple example where
+the matrices are initialized from two iterators.</p>
+
+<figure class="highlight"><pre><code class="language-rust" data-lang="rust"><span class="k">let</span> <span class="n">square_iter</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span><span class="o">..</span><span class="mi">9</span><span class="p">)</span><span class="nf">.map</span><span class="p">(|</span><span class="n">i</span><span class="p">|</span> <span class="n">i</span><span class="o">*</span><span class="n">i</span><span class="p">);</span>
+<span class="k">let</span> <span class="n">m1</span> <span class="o">=</span> <span class="nn">Matrix2x4</span><span class="p">::</span><span class="nf">from_iterator</span><span class="p">(</span><span class="n">square_iter</span><span class="nf">.clone</span><span class="p">());</span>
+<span class="cm">/* m1 = (1,  9, 25, 49,
+         4, 16, 36, 64)
+*/</span>
+
+<span class="k">let</span> <span class="n">odd_iter</span> <span class="o">=</span> <span class="p">(</span><span class="mi">0</span><span class="o">..</span><span class="mi">12</span><span class="p">)</span><span class="nf">.filter</span><span class="p">(|</span><span class="n">i</span><span class="p">|</span> <span class="n">i</span><span class="o">%</span><span class="mi">2</span><span class="o">==</span><span class="mi">1</span><span class="p">);</span>
+
+<span class="c">// We need to precise the number of rows and columns in the dynamic case.</span>
+<span class="k">let</span> <span class="n">m2</span> <span class="o">=</span> <span class="nn">DMatrix</span><span class="p">::</span><span class="nf">from_iterator</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">odd_iter</span><span class="p">);</span>
+<span class="cm">/* m2 = (1, 7, 
+         3, 9,
+         5, 11)
+*/</span>     </code></pre></figure>
+
+<p>Note that the matrix is filled with column major-order.</p>
+
+<h4 id="from-a-function">From a function</h4>
+<p>Sometime you do not have an iterator but you have directly the
+function to generate the values of your matrix. In this case it could
+be easier to just use the <em><strong>from_fn</strong></em> method.</p>
+
+<figure class="highlight"><pre><code class="language-rust" data-lang="rust"><span class="c">// We need to convert the usize type to floats</span>
+<span class="k">let</span> <span class="n">m1</span> <span class="o">=</span> <span class="nn">Matrix2x3</span><span class="p">::</span><span class="nf">from_fn</span><span class="p">(|</span><span class="n">r</span><span class="p">,</span><span class="n">c</span><span class="p">|</span> <span class="n">r</span> <span class="k">as</span> <span class="nb">f32</span> <span class="o">+</span> <span class="n">c</span> <span class="k">as</span> <span class="nb">f32</span><span class="p">);</span>
+<span class="cm">/* m1 = (0, 1, 2,
+        1, 2, 3)
+*/</span>
+ 
+<span class="k">fn</span> <span class="nf">foo</span><span class="p">(</span><span class="n">r</span><span class="p">:</span> <span class="nb">usize</span><span class="p">,</span> <span class="n">c</span><span class="p">:</span> <span class="nb">usize</span><span class="p">)</span> <span class="k">-&gt;</span> <span class="nb">i64</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="n">r</span> <span class="o">&gt;</span> <span class="mi">1</span> <span class="p">{</span> <span class="k">return</span> <span class="mi">1</span> <span class="p">}</span>
+    <span class="k">else</span> <span class="p">{</span> <span class="k">return</span> <span class="mi">0</span> <span class="p">}</span>
+<span class="p">}</span>
+<span class="c">// We need to precise the number of rows and columns in the dynamic case.</span>
+<span class="k">let</span> <span class="n">m2</span> <span class="o">=</span> <span class="nn">DMatrix</span><span class="p">::</span><span class="nf">from_fn</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="n">foo</span><span class="p">);</span>
+<span class="cm">/* m2 = (0, 0, 0, 0, 0,
+         0, 0, 0, 0, 0,
+         1, 1, 1, 1, 1)
+*/</span>    </code></pre></figure>
+
+<h3 id="accessing-and-modifying-elements">Accessing and modifying elements</h3>
+<p>Accessing and modifying values of matrices are fundamental operations
+for scientific computing. However, it could be a little bit tricky at
+first to do it because of the Rust compiler. Indeed, the infamous
+borrow checker will not let you do anything that is not safe.</p>
+
+<p>It is important to be clear on if we only want to access an element to
+read it/copy it or if we want to modify it. If we just want to read
+some value of our matrix it is simple.</p>
+
+<p><em>EDIT (December 22, 2018): The author of the crate reminded me of the
+tuple indexing. It means that to access the value of a matrix we can
+either consider the matrix as a single vector and use a single integer
+or see it as … a matrix and use two integers!</em></p>
+
+<figure class="highlight"><pre><code class="language-rust" data-lang="rust"><span class="k">let</span> <span class="n">m1</span> <span class="o">=</span> <span class="nn">Matrix3</span><span class="p">::</span><span class="nf">new</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span>
+                      <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span>
+		      <span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">8</span><span class="p">);</span>
+
+<span class="c">// Matrix seen as a vector</span>
+<span class="k">let</span> <span class="n">a_21</span> <span class="o">=</span> <span class="n">m1</span><span class="p">[</span><span class="mi">1</span><span class="o">*</span><span class="mi">3</span><span class="o">+</span><span class="mi">0</span><span class="p">];</span> <span class="c">// a_21 = 1</span>
+<span class="k">let</span> <span class="n">a_33</span> <span class="o">=</span> <span class="n">m1</span><span class="p">[</span><span class="mi">2</span><span class="o">*</span><span class="mi">3</span><span class="o">+</span><span class="mi">2</span><span class="p">];</span> <span class="c">// a_33 = 8</span>
+
+<span class="c">// Matrix seen as a matrix</span>
+<span class="k">let</span> <span class="n">b_21</span> <span class="o">=</span> <span class="n">m1</span><span class="p">[(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">)];</span> <span class="c">// b_21 = 1</span>
+<span class="k">let</span> <span class="n">b_33</span> <span class="o">=</span> <span class="n">m1</span><span class="p">[(</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">)];</span> <span class="c">// b_33 = 8</span>
+
+
+<span class="k">let</span> <span class="n">m2</span><span class="p">:</span> <span class="n">DMatrix</span><span class="o">&lt;</span><span class="nb">i32</span><span class="o">&gt;</span> <span class="o">=</span> <span class="nn">DMatrix</span><span class="p">::</span><span class="nf">identity</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">);</span>
+<span class="cm">/* m2 = (1, 0, 0, 0, 0,
+         0, 1, 0, 0, 0,
+         0, 0, 1, 0, 0,
+         0, 0, 0, 1, 0)
+*/</span>
+
+<span class="c">// Matrix seen as a vector</span>
+<span class="k">let</span> <span class="n">c_44</span> <span class="o">=</span> <span class="n">m2</span><span class="p">[</span><span class="mi">3</span><span class="o">*</span><span class="mi">4</span><span class="o">+</span><span class="mi">3</span><span class="p">];</span>       <span class="c">// c_44 = 1</span>
+
+<span class="c">// Matrix seen as a matrix</span>
+<span class="k">let</span> <span class="n">d_44</span> <span class="o">=</span> <span class="n">m2</span><span class="p">[(</span><span class="mi">3</span><span class="p">,</span><span class="mi">3</span><span class="p">)];</span>       <span class="c">// d_44 = 1</span>
+
+<span class="k">let</span> <span class="n">e</span> <span class="o">=</span> <span class="n">m2</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">m2</span><span class="p">[</span><span class="mi">3</span><span class="o">*</span><span class="mi">4</span><span class="o">+</span><span class="mi">3</span><span class="p">];</span>  <span class="c">// e = 2</span></code></pre></figure>
+
+<p><em>You have to remember that when considering the matrix as a single
+vector the indexing is done in column-major mode. On the other hand,
+when indexing as a matrix the indexes are in row-major mode:
+m[(i,j)] will be the value of the i-th row and the j-th column of m. Beware, unlike
+the mathematical notation both indexing method are 0-based.</em></p>
+
+<p>But now, suppose that you want to have access to
+the values of a submatrix. It is a pretty common task so nalgebra
+gives you many functions to do it. Here we will just see how to read a
+rows, columns and a simple submatrix (you can have a lot of fun by
+defining complex submatrix). Basically what we will do is to take a
+slice of the matrix. The slice will also be a <em>Matrix</em> type (with a
+special buffer type) so you can manipulate it as a normal matrix
+except that you cannot mutates its values.</p>
+
+<figure class="highlight"><pre><code class="language-rust" data-lang="rust"><span class="k">let</span> <span class="n">m</span> <span class="p">:</span> <span class="n">Matrix4x5</span><span class="o">&lt;</span><span class="nb">f32</span><span class="o">&gt;</span> <span class="o">=</span> <span class="nn">Matrix4x5</span><span class="p">::</span><span class="nf">identity</span><span class="p">();</span>
+<span class="cm">/* m = (1, 0, 0, 0, 0,
+        0, 1, 0, 0, 0,
+        0, 0, 1, 0, 0,
+        0, 0, 0, 1, 0)
+*/</span>
+
+
+<span class="c">// Here there is no need to specify the</span>
+<span class="c">// resulting matrix type because a row</span>
+<span class="c">// and a column have known size.</span>
+<span class="k">let</span> <span class="n">r1</span> <span class="o">=</span> <span class="n">m</span><span class="nf">.row</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span> 
+<span class="c">// r1 = (0, 0, 1, 0, 0)</span>
+  
+<span class="k">let</span> <span class="n">c1</span> <span class="o">=</span> <span class="n">m</span><span class="nf">.column</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span>
+<span class="cm">/* c1 = (0,
+         0,
+         1,
+         0)
+*/</span>
+
+<span class="c">// Here we need to specify the dimensions.</span>
+<span class="c">// Because the sizes are known at compile</span>
+<span class="c">// time there are the prefix "fixed" to the methods.</span>
+<span class="k">let</span> <span class="n">r2</span> <span class="o">=</span> <span class="n">m</span><span class="py">.fixed_rows</span><span class="p">::</span><span class="o">&lt;</span><span class="n">U3</span><span class="o">&gt;</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+<span class="cm">/* r2 = (0, 1, 0, 0, 0,
+         0, 0, 1, 0, 0,
+         0, 0, 0, 1, 0)
+*/</span>
+
+<span class="k">let</span> <span class="n">c2</span> <span class="o">=</span> <span class="n">m</span><span class="py">.fixed_columns</span><span class="p">::</span><span class="o">&lt;</span><span class="n">U2</span><span class="o">&gt;</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span>
+<span class="cm">/* c2 = (0, 0,
+         0, 0,
+         1, 0,
+         0, 1)
+*/</span>
+
+<span class="k">let</span> <span class="n">s1</span> <span class="o">=</span> <span class="n">m</span><span class="py">.fixed_slice</span><span class="p">::</span><span class="o">&lt;</span><span class="n">U3</span><span class="p">,</span><span class="n">U4</span><span class="o">&gt;</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">);</span>
+<span class="cm">/* s = (0, 1, 0, 0, 
+        0, 0, 1, 0, 
+        0, 0, 0, 1)
+*/</span>
+
+    
+<span class="c">// Here size is supposed to be known at runtime.</span>
+<span class="c">// It could be initialized by the user input for example.</span>
+<span class="k">let</span> <span class="n">size</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>
+
+<span class="k">let</span> <span class="n">r3</span> <span class="o">=</span> <span class="n">m</span><span class="nf">.rows</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">size</span><span class="p">);</span>
+<span class="cm">/* r3 = (1, 0, 0, 0, 0,
+         0, 1, 0, 0, 0)
+*/</span>
+
+<span class="k">let</span> <span class="n">c3</span> <span class="o">=</span> <span class="n">m</span><span class="nf">.columns</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">size</span><span class="p">);</span>
+<span class="cm">/* c3 = (0, 0,
+         1, 0,
+         0, 1,
+         0, 0)
+*/</span>
+    
+<span class="c">// start and shape are known at runtime</span>
+<span class="k">let</span> <span class="n">start</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">);</span>
+<span class="k">let</span> <span class="n">shape</span> <span class="o">=</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">);</span>
+<span class="k">let</span> <span class="n">s2</span> <span class="o">=</span> <span class="n">m</span><span class="nf">.slice</span><span class="p">(</span><span class="n">start</span><span class="p">,</span> <span class="n">shape</span><span class="p">);</span>
+<span class="cm">/* s2 = (1, 0, 0,
+         0, 1, 0)
+*/</span></code></pre></figure>
+
+<p>Note that as always, because the slices we are taking are in fact
+matrices we also need to know if their sizes are determined at compile
+time or not.</p>
+
+<p>So what about modifying the values of our matrix ?  You simply need to
+tell the compiler that you want your matrix to be mutable. However,
+remember that a slice cannot be mutated as it is just a view of a part
+of another matrix.</p>
+
+<figure class="highlight"><pre><code class="language-rust" data-lang="rust"><span class="k">let</span> <span class="k">mut</span> <span class="n">m1</span> <span class="o">=</span> <span class="nn">Matrix3</span><span class="p">::</span><span class="nf">identity</span><span class="p">();</span>
+<span class="n">m1</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mi">5</span><span class="p">;</span>
+<span class="cm">/* m1 = (5, 0, 0
+         0, 1, 0,
+         0, 0, 1)
+*/</span>
+
+<span class="k">let</span> <span class="k">mut</span> <span class="n">m2</span> <span class="o">=</span> <span class="nn">DMatrix</span><span class="p">::</span><span class="nf">from_row_slice</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="o">&amp;</span><span class="p">[</span><span class="mf">1.5</span><span class="p">,</span> <span class="err">-</span><span class="mf">4.7</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">,</span> <span class="err">-</span><span class="mf">5.9</span><span class="p">,</span>
+                                           <span class="mf">5.8</span><span class="p">,</span> <span class="mf">7.81</span><span class="p">,</span> <span class="mf">0.8</span><span class="p">,</span> <span class="mf">17.2</span><span class="p">,</span>
+                                           <span class="mf">1.4</span><span class="p">,</span> <span class="err">-</span><span class="mf">2.1</span><span class="p">,</span> <span class="mf">6.6</span><span class="p">,</span> <span class="err">-</span><span class="mf">4.1</span><span class="p">])</span>
+<span class="k">for</span> <span class="n">i</span> <span class="n">in</span> <span class="mi">0</span><span class="o">..</span><span class="mi">12</span> <span class="p">{</span><span class="n">m2</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">=</span><span class="n">i</span> <span class="k">as</span> <span class="nb">f32</span><span class="p">}</span>
+<span class="cm">/* m2 = (0.0, 3.0, 6.0, 9.0,
+         1.0, 4.0, 7.0, 10.0,
+         2.0, 5.0, 8.0, 11.0)
+*/</span></code></pre></figure>
+
+<p>Last but not least, what if you want to change the size of your matrix
+?  Again, nalgebra is making a difference between compile time and
+runtime. If you know at compile time how many rows or columns you want
+to add or remove then your matrix will stay statically-sized (except
+if it is already dynamically sized of course). Conversely, if you do
+not know at compile time how you want to resize your matrix then the
+output will be a dynamically sized matrix. Because there are many
+different methods we will just show a subset of them. You can read all
+in the <a href="http://nalgebra.org/vectors_and_matrices/">documentation</a>.</p>
+
+<figure class="highlight"><pre><code class="language-rust" data-lang="rust"><span class="k">let</span> <span class="n">m</span> <span class="o">=</span> <span class="nn">Matrix4x5</span><span class="p">::</span><span class="o">&lt;</span><span class="nb">i32</span><span class="o">&gt;</span><span class="p">::</span><span class="nf">identity</span><span class="p">();</span>
+<span class="cm">/* m = (1, 0, 0, 0, 0,
+        0, 1, 0, 0, 0,
+        0, 0, 1, 0, 0,
+        0, 0, 0, 1, 0)
+*/</span>
+
+<span class="k">let</span> <span class="n">m</span> <span class="o">=</span> <span class="n">m</span><span class="nf">.remove_row</span><span class="p">(</span><span class="mi">2</span><span class="p">);</span>
+<span class="cm">/* m = (1, 0, 0, 0, 0,
+        0, 1, 0, 0, 0,
+        0, 0, 0, 1, 0)
+*/</span>
+    
+<span class="k">let</span> <span class="n">m</span> <span class="o">=</span> <span class="n">m</span><span class="nf">.insert_column</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="err">-</span><span class="mi">15</span><span class="p">);</span>
+<span class="cm">/* m = (1, 0, 0, -15, 0, 0,
+        0, 1, 0, -15, 0, 0,
+        0, 0, 0, -15, 1, 0)
+*/</span>
+
+<span class="c">// Here n is initialized at runtime</span>
+<span class="k">let</span> <span class="n">n</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>
+<span class="k">let</span> <span class="n">m</span> <span class="o">=</span> <span class="n">m</span><span class="nf">.remove_columns</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="n">n</span><span class="p">);</span>
+<span class="cm">/* m = (1, -15, 0, 0,
+        0, -15, 0, 0,
+        0, -15, 1, 0)
+*/</span>
+
+<span class="k">let</span> <span class="n">m</span> <span class="o">=</span> <span class="n">m</span><span class="nf">.insert_rows</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="mi">188</span><span class="p">);</span>
+<span class="cm">/* m = (  1, -15,   0,   0,
+          0, -15,   0,   0,
+        188, 188, 188, 188,
+        188, 188, 188, 188,
+          0, -15,   1,   0)
+*/</span></code></pre></figure>
+
+<p>Note that during the resizing you need to use the <em><strong>let</strong></em> keyword to
+mean that you redefine the type of your variable. Indeed, because the
+size of your matrix is changing its type is also changing.</p>
+
+<h3 id="matrix-operations">Matrix operations</h3>
+<p>Having to specify the types of the matrices we are using can be a pain
+but it begins to be useful when we are manipulating them. It
+is simple, if you do a mistake by manipulating two matrices with
+non-suitable dimensions it will <em>not</em> compile! Unlike for example
+numpy in Python where the matrix are all dynamically sized and where
+you discover your mistake by running your program (which can be time
+expensive) in Rust you will know it immediately! Of course, there is
+no magic. If your matrices are dynamically sized you will also have to
+debug at runtime. Therefore, the more information you give to the
+compiler and the easier it will protect you.</p>
+
+<h4 id="addition-and-multiplication">Addition and multiplication</h4>
+<p>Now that we have seen all of the basics we can begin to use our
+matrices for real! Additioning and multiplicating matrices are two
+operations really easy in nalgebra, just consider them as simple
+scalar values and it will work out of the box!</p>
+
+<figure class="highlight"><pre><code class="language-rust" data-lang="rust"><span class="k">let</span> <span class="n">a</span> <span class="o">=</span> <span class="nn">Matrix2</span><span class="p">::</span><span class="nf">new</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span>
+                     <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">);</span>
+<span class="k">let</span> <span class="n">b</span> <span class="o">=</span> <span class="nn">Matrix2</span><span class="p">::</span><span class="nf">new</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span>
+                     <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+<span class="k">let</span> <span class="n">c</span> <span class="o">=</span> <span class="n">a</span><span class="o">+</span><span class="n">b</span><span class="p">;</span>
+<span class="cm">/* c = (6, 2,
+        3, 4)
+*/</span>
+    
+<span class="k">let</span> <span class="n">d</span> <span class="o">=</span> <span class="n">a</span><span class="o">*</span><span class="n">b</span><span class="p">;</span>
+<span class="cm">/* d = ( 5, 0,
+        15, 0)
+*/</span>
+
+<span class="c">// We can use slices for operations</span>
+<span class="k">let</span> <span class="n">e</span> <span class="o">=</span> <span class="n">a</span><span class="o">*</span><span class="n">b</span><span class="nf">.column</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
+<span class="cm">/* e = ( 5,
+        15)
+*/</span></code></pre></figure>
+
+<p>Besides, it is worth insisting on the protection against matrix shapes
+mismatch. The Rust compiler will prevent you to do not compatible
+operation at compile time but only if you give enough information to
+it! It is always advantageous to you use methods requiring compile
+time information because first it will protect you again stupid
+mistakes and second it will be faster (the compiler could use the
+stack instead of the heap)!</p>
+
+<h4 id="linear-system">Linear system</h4>
+<p>Most of the interest of using nalgebra is to do…algebra! And a very
+common operation in algebra is to solve a linear system. However,
+nalgebra gives you many ways to solve it. Indeed, if your linear
+system is in the form <strong>Ax=b</strong> then computing <strong>A^-1</strong> may not be the
+fastest solution! It is not in the scope of this article to explain
+about all the different algebra tricks but the core idea is to exploit
+matrices’ structures to reduce the computation time.</p>
+
+<p>If you just want the inverse of a function, you can call the
+<em><strong>try_invert_to</strong></em> function. The function takes two arguments, an input
+matrix and an output matrix. By performing a LU decomposition on the
+input matrix the function is trying to find an inverse and store the
+result in the output matrix. Be careful, if no inverse is found your
+output matrix may contain invalid data (so check the result).</p>
+
+<figure class="highlight"><pre><code class="language-rust" data-lang="rust"><span class="k">let</span> <span class="k">mut</span> <span class="n">m</span> <span class="o">=</span> <span class="nn">Matrix2</span><span class="p">::</span><span class="nf">new</span><span class="p">(</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">,</span>
+                         <span class="mf">3.0</span><span class="p">,</span> <span class="mf">4.0</span><span class="p">);</span>
+<span class="k">let</span> <span class="k">mut</span> <span class="n">result</span> <span class="o">=</span> <span class="nn">Matrix2</span><span class="p">::</span><span class="nf">zeros</span><span class="p">();</span>
+    
+<span class="nn">na</span><span class="p">::</span><span class="nn">linalg</span><span class="p">::</span><span class="nf">try_invert_to</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="o">&amp;</span><span class="k">mut</span> <span class="n">result</span><span class="p">);</span>
+<span class="cm">/* result = ( -2,    1,
+             1.5, -0.5)
+*/</span></code></pre></figure>
+
+<p>Now what can we do if we want to solve the classical linear system
+<strong>Ax=b</strong> ? Depending on the property of your matrix you can use
+different decompositions to speed up the resolution. I will let you
+take care of the choice but here I will just show some examples. The
+following code solves a linear system in three different ways. Once by
+inversing the matrix <strong>A</strong> and multiplying it by <strong>b</strong> (very
+unefficient). Once by computing the LU decomposition and asking
+nalgebra to solve it. And finally once by computing the Cholesky
+decomposition and using nalgebra to solve it (faster than the LU
+decomposition !).</p>
+
+<figure class="highlight"><pre><code class="language-rust" data-lang="rust"><span class="k">let</span> <span class="k">mut</span> <span class="n">A</span> <span class="o">=</span> <span class="nn">Matrix2</span><span class="p">::</span><span class="nf">new</span><span class="p">(</span><span class="mf">1.0</span><span class="p">,</span> <span class="err">-</span><span class="mf">1.0</span><span class="p">,</span>
+                         <span class="err">-</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">4.0</span><span class="p">);</span>
+
+<span class="k">let</span> <span class="k">mut</span> <span class="n">b</span> <span class="o">=</span> <span class="nn">Vector2</span><span class="p">::</span><span class="nf">new</span><span class="p">(</span><span class="mf">1.0</span><span class="p">,</span><span class="mf">5.0</span><span class="p">);</span>
+    
+<span class="k">let</span> <span class="k">mut</span> <span class="n">A_inv</span> <span class="o">=</span> <span class="nn">Matrix2</span><span class="p">::</span><span class="nf">zeros</span><span class="p">();</span>
+<span class="nn">na</span><span class="p">::</span><span class="nn">linalg</span><span class="p">::</span><span class="nf">try_invert_to</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="o">&amp;</span><span class="k">mut</span> <span class="n">A_inv</span><span class="p">);</span>
+<span class="k">let</span> <span class="n">A_lu</span> <span class="o">=</span> <span class="n">A</span><span class="nf">.lu</span><span class="p">();</span>
+<span class="k">let</span> <span class="n">A_cho</span> <span class="o">=</span> <span class="n">A</span><span class="nf">.cholesky</span><span class="p">();</span>
+
+<span class="nd">println!</span><span class="p">(</span><span class="s">"{}"</span><span class="p">,</span><span class="n">A_inv</span><span class="o">*</span><span class="n">b</span><span class="p">);</span>
+<span class="nd">println!</span><span class="p">(</span><span class="s">"{}"</span><span class="p">,</span><span class="n">A_lu</span><span class="nf">.solve</span><span class="p">(</span><span class="o">&amp;</span><span class="n">b</span><span class="p">)</span><span class="nf">.unwrap</span><span class="p">());</span>
+<span class="nd">println!</span><span class="p">(</span><span class="s">"{}"</span><span class="p">,</span><span class="n">A_cho</span><span class="nf">.unwrap</span><span class="p">()</span><span class="nf">.solve</span><span class="p">(</span><span class="o">&amp;</span><span class="n">b</span><span class="p">));</span>
+
+<span class="cm">/* result = (3,
+             2)
+*/</span></code></pre></figure>
+
+<p>Please note that the in the case of the LU decomposition the result of
+the solve function is an <em>Option</em>. It means we have to check if a
+solution has been found. In the case of the Cholesky decomposition it
+is the decomposition itself that is an <em>Option</em> (because the matrix
+may not be symmetric definite positive) but the solve function outputs a <em>Matrix</em>.</p>
+
+<h4 id="other">Other</h4>
+
+<p>I cannot write about all the possibilities that nalgebra offers (that
+is the documentation duty) because this post is already too long.
+Just for you to know, nalgebra allows you to perform many
+factorization of your matrices (QR, SVD…), finding the determinant
+and the eigenvalues, and to do a lot of computer graphic operations
+(rotation, projection…). As always, you can check it in the
+<a href="http://nalgebra.org/">documention</a>.</p>
+
+  </div><a class="u-url" href="/2018/08/04/data_manipulation.html" hidden></a>
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">Miso and Raclette programming</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">Miso and Raclette programming</li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://github.com/misoraclette"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg> <span class="username">misoraclette</span></a></li></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>This blog is mostly about scientific programming. My goal is to write about anything I think is useful but may not have yet a clear documentation.</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>
