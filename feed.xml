@@ -1,4 +1,117 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2018-12-23T00:28:07+09:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Miso and Raclette programming</title><subtitle>This blog is mostly about scientific programming. My goal is to write about anything I think is useful but may not have yet a clear documentation.</subtitle><entry><title type="html">Rust for total beginners: Hello World!</title><link href="http://localhost:4000/2018/12/22/rust-for-total-beginner.html" rel="alternate" type="text/html" title="Rust for total beginners: Hello World!" /><published>2018-12-22T00:00:00+09:00</published><updated>2018-12-22T00:00:00+09:00</updated><id>http://localhost:4000/2018/12/22/rust-for-total-beginner</id><content type="html" xml:base="http://localhost:4000/2018/12/22/rust-for-total-beginner.html">&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="https://github.com/misoraclette/misoraclette.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://github.com/misoraclette/misoraclette.github.io/" rel="alternate" type="text/html" /><updated>2018-12-23T01:55:08+09:00</updated><id>https://github.com/misoraclette/misoraclette.github.io/feed.xml</id><title type="html">Miso and Raclette programming</title><subtitle>This blog is mostly about scientific programming. My goal is to write about anything I think is useful but may not have yet a clear documentation.</subtitle><entry><title type="html">Rust for total beginners: a talkative computer</title><link href="https://github.com/misoraclette/misoraclette.github.io/2018/12/23/rust-for-total-beginners-2.html" rel="alternate" type="text/html" title="Rust for total beginners: a talkative computer" /><published>2018-12-23T00:00:00+09:00</published><updated>2018-12-23T00:00:00+09:00</updated><id>https://github.com/misoraclette/misoraclette.github.io/2018/12/23/rust-for-total-beginners-2</id><content type="html" xml:base="https://github.com/misoraclette/misoraclette.github.io/2018/12/23/rust-for-total-beginners-2.html">&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
+
+&lt;p&gt;In our &lt;a href=&quot;/2018/12/22/rust-for-total-beginners-1.html&quot;&gt;previous post&lt;/a&gt; we have seen how to compile our first Rust program. But we did not really do anything, everything was already written for us. In this post we will discover how to change the code and make the computer talk to us!&lt;/p&gt;
+
+&lt;h2 id=&quot;understanding-our-code&quot;&gt;Understanding our code&lt;/h2&gt;
+
+&lt;p&gt;The code that was compiled came from the &lt;em&gt;main.rs&lt;/em&gt; file.&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-rust&quot; data-lang=&quot;rust&quot;&gt;&lt;span class=&quot;k&quot;&gt;fn&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;main&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;nd&quot;&gt;println!&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Hello, world!&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;The Rust programming language is made of keywords having specific meaning for the computer. The first keyword we can see here is the &lt;strong&gt;fn&lt;/strong&gt; keyword. This keyword means that the following will be a function. Hence, &lt;em&gt;main&lt;/em&gt; is a function. You can easily recognize functions because they are always followed by a pair of round brackets. We will learn more about functions in a later post but what you should remember here is that the code that will be executed by your program is inside the &lt;em&gt;main&lt;/em&gt; function. But what is “inside” ? Do you see the “{“ and “}” symbols? This curly bracket pair defines the beginning and end of the main function. Whatever you will write inside will belong to the &lt;em&gt;main&lt;/em&gt; function.&lt;/p&gt;
+
+&lt;p&gt;Here, the only instruction inside the &lt;em&gt;main&lt;/em&gt; function is&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-rust&quot; data-lang=&quot;rust&quot;&gt;&lt;span class=&quot;nd&quot;&gt;println!&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Hello, world!&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;&lt;em&gt;println&lt;/em&gt; is called a &lt;strong&gt;macro&lt;/strong&gt;. You can recognize macros by the “!” at the end. You do not need for now to care about the meaning of a macro, just think of it as a black box. You can already guess the purpose of this macro: it prints in the console the text you write inside. But again, what is “inside” for a macro? “Inside” is defined by whatever is between the pair of round brackets “(“ and “)”. We call &lt;strong&gt;argument&lt;/strong&gt; the input we give to the macro. So, in this case we put inside the &lt;em&gt;println&lt;/em&gt; macro the following argument:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-rust&quot; data-lang=&quot;rust&quot;&gt;&lt;span class=&quot;s&quot;&gt;&quot;Hello, world!&quot;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;What about the semicolon “;”? Well, there are some subtelty but for now think of it as an indicator for the computer that the instruction is done. Most lines of Rust code will end with a semicolon.&lt;/p&gt;
+
+&lt;h2 id=&quot;a-bit-of-modification&quot;&gt;A bit of modification&lt;/h2&gt;
+
+&lt;p&gt;From now I will assume that you will change the code on your computer and compile/run it for each example I will give you. Remember that we can only learn how to program by practicing a lot, so do not hesitate by experiment by yourself! A small reminder, to compile your code you can type &lt;em&gt;cargo build&lt;/em&gt; and to run it you can type &lt;em&gt;cargo run&lt;/em&gt;. Besides, you do not really need to separate this two steps, in fact, &lt;em&gt;cargo run&lt;/em&gt; will compile and run your program in one step!&lt;/p&gt;
+
+&lt;p&gt;We now understand what our program is doing. Good, now let’s modify it! A straightforward modification would be to modify the argument of the &lt;em&gt;println&lt;/em&gt; macro:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-rust&quot; data-lang=&quot;rust&quot;&gt;&lt;span class=&quot;k&quot;&gt;fn&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;main&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;nd&quot;&gt;println!&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;I can talk!!!&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;And it should work well. Your computer can write sentences! What about repeating the instruction?&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-rust&quot; data-lang=&quot;rust&quot;&gt;&lt;span class=&quot;k&quot;&gt;fn&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;main&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;nd&quot;&gt;println!&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;I can talk!!!&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;nd&quot;&gt;println!&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;I can talk!!!&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;The result should be something like this:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;I can talk!!!
+I can talk!!!&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;Nothing surprising. You asked the computer to print two times “I can talk!!!” and it did. Now, what if you forgot to write a semicolon?&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-rust&quot; data-lang=&quot;rust&quot;&gt;&lt;span class=&quot;k&quot;&gt;fn&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;main&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;nd&quot;&gt;println!&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;I can talk!!!&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;nd&quot;&gt;println!&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;I can talk!!!&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;Nothing changes, everything is good. But, what about this?&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-rust&quot; data-lang=&quot;rust&quot;&gt;&lt;span class=&quot;k&quot;&gt;fn&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;main&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;nd&quot;&gt;println!&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;I can talk!!!&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;nd&quot;&gt;println!&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;I can talk!!!&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;Suddenly we got this message:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;error: expected one of &lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt;.&lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt;, &lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;&lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt;, &lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt;?&lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt;, &lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt;, or an operator, found &lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt;println&lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt;
+ &lt;span class=&quot;nt&quot;&gt;--&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; src/main.rs:3:5
+   |
+   2 |     println!&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;I can talk!!!&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+     |                              - expected one of &lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt;.&lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt;, &lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;&lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt;, &lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt;?&lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt;, &lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt;, or an operator here
+     3 |     println!&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;I can talk!!!&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+       |     ^^^^^^^ unexpected token
+
+error: aborting due to previous error
+
+error: Could not compile &lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt;my_project&lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;.&lt;/span&gt;
+
+To learn more, run the &lt;span class=&quot;nb&quot;&gt;command &lt;/span&gt;again with &lt;span class=&quot;nt&quot;&gt;--verbose&lt;/span&gt;.&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;This is a message from the compiler! If you remember from the last post, the compiler is translating your Rust code to machine code. However, the Rust code should follow some rules. One of them is that each instruction should be separated by a semicolon. If you do not put a semicolon at the end of the second line (the first &lt;em&gt;println&lt;/em&gt; instruction) the compiler will think that the instructions continues on the third line (the second &lt;em&gt;println&lt;/em&gt; instruction) which is an error.&lt;/p&gt;
+
+&lt;p&gt;You should think of the compiler as a friend who will tell you if your code has some mistakes that you should correct before translating it to machine code. It will avoid you to compile your code into a program acting in a different way that you expected. One of Rust good selling point is the compiler error messages. Most of them are easy to understand and guide you on how to solve the problem. Here, the compiler says that he was expecting an operator (the semicolon “;”) but instead it found the &lt;em&gt;println&lt;/em&gt; macro in the third line (remember that the compiler does not care about line break). So if you want to fix it, you should add a semicolon at the end of the instruction.&lt;/p&gt;
+
+&lt;p&gt;The compiler does not care about line break, but it also does not care about blank space! So if you want you could write&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-rust&quot; data-lang=&quot;rust&quot;&gt;&lt;span class=&quot;k&quot;&gt;fn&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;main&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;nd&quot;&gt;println!&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;I can talk!!!&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;       &lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;nd&quot;&gt;println!&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;I can talk!!!&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;The compiler will understand it the same! However, it is better to write it just at the end of the line as it is easier to read for most programmer. You will soon see that Rust will try to make you follow writing conventions. It may seems arbitrary at first and constraining but I promise you that at the end you will like to be able to read other people code easily because they respect the same convention as you do.&lt;/p&gt;
+
+&lt;p&gt;Another thing, you can write non-existing instructions! You just need to write a semicolon with nothing before.&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-rust&quot; data-lang=&quot;rust&quot;&gt;&lt;span class=&quot;k&quot;&gt;fn&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;main&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;nd&quot;&gt;println!&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;First instruction&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;nd&quot;&gt;println!&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Third instruction&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;It is of course totally useless, but it is understood by the compiler.&lt;/p&gt;
+
+&lt;p&gt;Ok, so everything is clear right? Wait! Why did the compiler throw an error when the first semicolon was forgotten but not when it was the second one? Like I said before, there are some subtelty on how to indicate that an instruction is finished in Rust. For now you can think of it as that the last instruction of the &lt;em&gt;main&lt;/em&gt; function does not need a semicolon to indicate that it is the end. However, you can still put one! From now on I will always write a semicolon even if it not necessary. We will see later in which case we can remove it.&lt;/p&gt;
+
+&lt;p&gt;Here is a last program. I advice you to try modify it by yourself!&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-rust&quot; data-lang=&quot;rust&quot;&gt;&lt;span class=&quot;k&quot;&gt;fn&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;main&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;nd&quot;&gt;println!&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Hi! I am your computer, nice to meet you!&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;nd&quot;&gt;println!&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Do you know that I can talk in multiple languages?&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;nd&quot;&gt;println!&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Here is some Japanese: 日本語を話せます！&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;nd&quot;&gt;println!&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Or some French: Je peux aussi parler français.&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;nd&quot;&gt;println!&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;And I can count: 1+1=2 !&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;h2 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h2&gt;
+
+&lt;p&gt;In this post we have seen what our program was really doing and we modified it to make our computer talked to us. However, it is still us who told it everything it has to say. In the next part we will make the computer do some computations for us!&lt;/p&gt;</content><author><name></name></author><summary type="html">Introduction</summary></entry><entry><title type="html">Rust for total beginners: Hello World!</title><link href="https://github.com/misoraclette/misoraclette.github.io/2018/12/22/rust-for-total-beginners-1.html" rel="alternate" type="text/html" title="Rust for total beginners: Hello World!" /><published>2018-12-22T00:00:00+09:00</published><updated>2018-12-22T00:00:00+09:00</updated><id>https://github.com/misoraclette/misoraclette.github.io/2018/12/22/rust-for-total-beginners-1</id><content type="html" xml:base="https://github.com/misoraclette/misoraclette.github.io/2018/12/22/rust-for-total-beginners-1.html">&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
 
 &lt;p&gt;I often see on forums that the Rust language is great but not adapted for beginners as a first language. I disagree. Personally, I have discovered programming with the C language and I do not think that my experience would have been that much different if it was Rust. However, there are few tutorials aimed at total beginners. That’s why I will try to write a serie of posts to make an introduction to the Rust language requiring no knowledge of programming. Please note that I am not a Rust expert myself so I welcome any critic of my code and explanations!&lt;/p&gt;
 
@@ -58,7 +171,7 @@
 
 &lt;h2 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h2&gt;
 
-&lt;p&gt;We have seen in this post how to install Rust and how to create our first program. However, we did not really do anything. In the next post we will learn how to modify the code and make the computer talk to us!&lt;/p&gt;</content><author><name></name></author><summary type="html">Introduction</summary></entry><entry><title type="html">Data manipulation in rust (Part 1 : nalgebra)</title><link href="http://localhost:4000/2018/08/04/data_manipulation.html" rel="alternate" type="text/html" title="Data manipulation in rust (Part 1 : nalgebra)" /><published>2018-08-04T00:00:00+09:00</published><updated>2018-08-04T00:00:00+09:00</updated><id>http://localhost:4000/2018/08/04/data_manipulation</id><content type="html" xml:base="http://localhost:4000/2018/08/04/data_manipulation.html">&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
+&lt;p&gt;We have seen in this post how to install Rust and how to create our first program. However, we did not really do anything. In the &lt;a href=&quot;/2018/12/23/rust-for-total-beginners-2.html&quot;&gt;next post&lt;/a&gt; we will learn how to modify the code and make the computer talk to us!&lt;/p&gt;</content><author><name></name></author><summary type="html">Introduction</summary></entry><entry><title type="html">Data manipulation in rust (Part 1 : nalgebra)</title><link href="https://github.com/misoraclette/misoraclette.github.io/2018/08/04/data_manipulation.html" rel="alternate" type="text/html" title="Data manipulation in rust (Part 1 : nalgebra)" /><published>2018-08-04T00:00:00+09:00</published><updated>2018-08-04T00:00:00+09:00</updated><id>https://github.com/misoraclette/misoraclette.github.io/2018/08/04/data_manipulation</id><content type="html" xml:base="https://github.com/misoraclette/misoraclette.github.io/2018/08/04/data_manipulation.html">&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
 
 &lt;p&gt;I am writing this blog for two main reasons. First, I
 am using Rust and I would love to see it used more in the scientific

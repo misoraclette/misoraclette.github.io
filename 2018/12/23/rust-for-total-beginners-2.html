@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.5.0 -->
+<title>Rust for total beginners: a talkative computer | Miso and Raclette programming</title>
+<meta name="generator" content="Jekyll v3.8.5" />
+<meta property="og:title" content="Rust for total beginners: a talkative computer" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Introduction" />
+<meta property="og:description" content="Introduction" />
+<link rel="canonical" href="https://github.com/misoraclette/misoraclette.github.io/2018/12/23/rust-for-total-beginners-2.html" />
+<meta property="og:url" content="https://github.com/misoraclette/misoraclette.github.io/2018/12/23/rust-for-total-beginners-2.html" />
+<meta property="og:site_name" content="Miso and Raclette programming" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2018-12-23T00:00:00+09:00" />
+<script type="application/ld+json">
+{"description":"Introduction","@type":"BlogPosting","url":"https://github.com/misoraclette/misoraclette.github.io/2018/12/23/rust-for-total-beginners-2.html","headline":"Rust for total beginners: a talkative computer","dateModified":"2018-12-23T00:00:00+09:00","datePublished":"2018-12-23T00:00:00+09:00","mainEntityOfPage":{"@type":"WebPage","@id":"https://github.com/misoraclette/misoraclette.github.io/2018/12/23/rust-for-total-beginners-2.html"},"@context":"http://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/assets/main.css"><link type="application/atom+xml" rel="alternate" href="https://github.com/misoraclette/misoraclette.github.io/feed.xml" title="Miso and Raclette programming" /></head>
+<body><header class="site-header" role="banner">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/">Miso and Raclette programming</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">Rust for total beginners: a talkative computer</h1>
+    <p class="post-meta">
+      <time class="dt-published" datetime="2018-12-23T00:00:00+09:00" itemprop="datePublished">Dec 23, 2018
+      </time></p>
+  </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <h2 id="introduction">Introduction</h2>
+
+<p>In our <a href="/2018/12/22/rust-for-total-beginners-1.html">previous post</a> we have seen how to compile our first Rust program. But we did not really do anything, everything was already written for us. In this post we will discover how to change the code and make the computer talk to us!</p>
+
+<h2 id="understanding-our-code">Understanding our code</h2>
+
+<p>The code that was compiled came from the <em>main.rs</em> file.</p>
+
+<figure class="highlight"><pre><code class="language-rust" data-lang="rust"><span class="k">fn</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nd">println!</span><span class="p">(</span><span class="s">"Hello, world!"</span><span class="p">);</span>
+<span class="p">}</span></code></pre></figure>
+
+<p>The Rust programming language is made of keywords having specific meaning for the computer. The first keyword we can see here is the <strong>fn</strong> keyword. This keyword means that the following will be a function. Hence, <em>main</em> is a function. You can easily recognize functions because they are always followed by a pair of round brackets. We will learn more about functions in a later post but what you should remember here is that the code that will be executed by your program is inside the <em>main</em> function. But what is “inside” ? Do you see the “{“ and “}” symbols? This curly bracket pair defines the beginning and end of the main function. Whatever you will write inside will belong to the <em>main</em> function.</p>
+
+<p>Here, the only instruction inside the <em>main</em> function is</p>
+
+<figure class="highlight"><pre><code class="language-rust" data-lang="rust"><span class="nd">println!</span><span class="p">(</span><span class="s">"Hello, world!"</span><span class="p">);</span></code></pre></figure>
+
+<p><em>println</em> is called a <strong>macro</strong>. You can recognize macros by the “!” at the end. You do not need for now to care about the meaning of a macro, just think of it as a black box. You can already guess the purpose of this macro: it prints in the console the text you write inside. But again, what is “inside” for a macro? “Inside” is defined by whatever is between the pair of round brackets “(“ and “)”. We call <strong>argument</strong> the input we give to the macro. So, in this case we put inside the <em>println</em> macro the following argument:</p>
+
+<figure class="highlight"><pre><code class="language-rust" data-lang="rust"><span class="s">"Hello, world!"</span></code></pre></figure>
+
+<p>What about the semicolon “;”? Well, there are some subtelty but for now think of it as an indicator for the computer that the instruction is done. Most lines of Rust code will end with a semicolon.</p>
+
+<h2 id="a-bit-of-modification">A bit of modification</h2>
+
+<p>From now I will assume that you will change the code on your computer and compile/run it for each example I will give you. Remember that we can only learn how to program by practicing a lot, so do not hesitate by experiment by yourself! A small reminder, to compile your code you can type <em>cargo build</em> and to run it you can type <em>cargo run</em>. Besides, you do not really need to separate this two steps, in fact, <em>cargo run</em> will compile and run your program in one step!</p>
+
+<p>We now understand what our program is doing. Good, now let’s modify it! A straightforward modification would be to modify the argument of the <em>println</em> macro:</p>
+
+<figure class="highlight"><pre><code class="language-rust" data-lang="rust"><span class="k">fn</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nd">println!</span><span class="p">(</span><span class="s">"I can talk!!!"</span><span class="p">);</span>
+<span class="p">}</span></code></pre></figure>
+
+<p>And it should work well. Your computer can write sentences! What about repeating the instruction?</p>
+
+<figure class="highlight"><pre><code class="language-rust" data-lang="rust"><span class="k">fn</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nd">println!</span><span class="p">(</span><span class="s">"I can talk!!!"</span><span class="p">);</span>
+    <span class="nd">println!</span><span class="p">(</span><span class="s">"I can talk!!!"</span><span class="p">);</span>
+<span class="p">}</span></code></pre></figure>
+
+<p>The result should be something like this:</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">I can talk!!!
+I can talk!!!</code></pre></figure>
+
+<p>Nothing surprising. You asked the computer to print two times “I can talk!!!” and it did. Now, what if you forgot to write a semicolon?</p>
+
+<figure class="highlight"><pre><code class="language-rust" data-lang="rust"><span class="k">fn</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nd">println!</span><span class="p">(</span><span class="s">"I can talk!!!"</span><span class="p">);</span>
+    <span class="nd">println!</span><span class="p">(</span><span class="s">"I can talk!!!"</span><span class="p">)</span>
+<span class="p">}</span></code></pre></figure>
+
+<p>Nothing changes, everything is good. But, what about this?</p>
+
+<figure class="highlight"><pre><code class="language-rust" data-lang="rust"><span class="k">fn</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nd">println!</span><span class="p">(</span><span class="s">"I can talk!!!"</span><span class="p">)</span>
+    <span class="nd">println!</span><span class="p">(</span><span class="s">"I can talk!!!"</span><span class="p">);</span>
+<span class="p">}</span></code></pre></figure>
+
+<p>Suddenly we got this message:</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">error: expected one of <span class="sb">`</span>.<span class="sb">`</span>, <span class="sb">`</span><span class="p">;</span><span class="sb">`</span>, <span class="sb">`</span>?<span class="sb">`</span>, <span class="sb">`</span><span class="o">}</span><span class="sb">`</span>, or an operator, found <span class="sb">`</span>println<span class="sb">`</span>
+ <span class="nt">--</span><span class="o">&gt;</span> src/main.rs:3:5
+   |
+   2 |     println!<span class="o">(</span><span class="s2">"I can talk!!!"</span><span class="o">)</span>
+     |                              - expected one of <span class="sb">`</span>.<span class="sb">`</span>, <span class="sb">`</span><span class="p">;</span><span class="sb">`</span>, <span class="sb">`</span>?<span class="sb">`</span>, <span class="sb">`</span><span class="o">}</span><span class="sb">`</span>, or an operator here
+     3 |     println!<span class="o">(</span><span class="s2">"I can talk!!!"</span><span class="o">)</span><span class="p">;</span>
+       |     ^^^^^^^ unexpected token
+
+error: aborting due to previous error
+
+error: Could not compile <span class="sb">`</span>my_project<span class="sb">`</span><span class="nb">.</span>
+
+To learn more, run the <span class="nb">command </span>again with <span class="nt">--verbose</span>.</code></pre></figure>
+
+<p>This is a message from the compiler! If you remember from the last post, the compiler is translating your Rust code to machine code. However, the Rust code should follow some rules. One of them is that each instruction should be separated by a semicolon. If you do not put a semicolon at the end of the second line (the first <em>println</em> instruction) the compiler will think that the instructions continues on the third line (the second <em>println</em> instruction) which is an error.</p>
+
+<p>You should think of the compiler as a friend who will tell you if your code has some mistakes that you should correct before translating it to machine code. It will avoid you to compile your code into a program acting in a different way that you expected. One of Rust good selling point is the compiler error messages. Most of them are easy to understand and guide you on how to solve the problem. Here, the compiler says that he was expecting an operator (the semicolon “;”) but instead it found the <em>println</em> macro in the third line (remember that the compiler does not care about line break). So if you want to fix it, you should add a semicolon at the end of the instruction.</p>
+
+<p>The compiler does not care about line break, but it also does not care about blank space! So if you want you could write</p>
+
+<figure class="highlight"><pre><code class="language-rust" data-lang="rust"><span class="k">fn</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nd">println!</span><span class="p">(</span><span class="s">"I can talk!!!"</span><span class="p">)</span>       <span class="p">;</span>
+    <span class="nd">println!</span><span class="p">(</span><span class="s">"I can talk!!!"</span><span class="p">);</span>
+<span class="p">}</span></code></pre></figure>
+
+<p>The compiler will understand it the same! However, it is better to write it just at the end of the line as it is easier to read for most programmer. You will soon see that Rust will try to make you follow writing conventions. It may seems arbitrary at first and constraining but I promise you that at the end you will like to be able to read other people code easily because they respect the same convention as you do.</p>
+
+<p>Another thing, you can write non-existing instructions! You just need to write a semicolon with nothing before.</p>
+
+<figure class="highlight"><pre><code class="language-rust" data-lang="rust"><span class="k">fn</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nd">println!</span><span class="p">(</span><span class="s">"First instruction"</span><span class="p">);</span>
+    <span class="p">;</span>
+    <span class="nd">println!</span><span class="p">(</span><span class="s">"Third instruction"</span><span class="p">);</span>
+<span class="p">}</span></code></pre></figure>
+
+<p>It is of course totally useless, but it is understood by the compiler.</p>
+
+<p>Ok, so everything is clear right? Wait! Why did the compiler throw an error when the first semicolon was forgotten but not when it was the second one? Like I said before, there are some subtelty on how to indicate that an instruction is finished in Rust. For now you can think of it as that the last instruction of the <em>main</em> function does not need a semicolon to indicate that it is the end. However, you can still put one! From now on I will always write a semicolon even if it not necessary. We will see later in which case we can remove it.</p>
+
+<p>Here is a last program. I advice you to try modify it by yourself!</p>
+
+<figure class="highlight"><pre><code class="language-rust" data-lang="rust"><span class="k">fn</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nd">println!</span><span class="p">(</span><span class="s">"Hi! I am your computer, nice to meet you!"</span><span class="p">);</span>
+    <span class="nd">println!</span><span class="p">(</span><span class="s">"Do you know that I can talk in multiple languages?"</span><span class="p">);</span>
+    <span class="nd">println!</span><span class="p">(</span><span class="s">"Here is some Japanese: 日本語を話せます！"</span><span class="p">);</span>
+    <span class="nd">println!</span><span class="p">(</span><span class="s">"Or some French: Je peux aussi parler français."</span><span class="p">);</span>
+    <span class="nd">println!</span><span class="p">(</span><span class="s">"And I can count: 1+1=2 !"</span><span class="p">);</span>
+<span class="p">}</span></code></pre></figure>
+
+<h2 id="conclusion">Conclusion</h2>
+
+<p>In this post we have seen what our program was really doing and we modified it to make our computer talked to us. However, it is still us who told it everything it has to say. In the next part we will make the computer do some computations for us!</p>
+
+  </div><a class="u-url" href="/2018/12/23/rust-for-total-beginners-2.html" hidden></a>
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">Miso and Raclette programming</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">Miso and Raclette programming</li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://github.com/misoraclette"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg> <span class="username">misoraclette</span></a></li></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>This blog is mostly about scientific programming. My goal is to write about anything I think is useful but may not have yet a clear documentation.</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>
