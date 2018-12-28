@@ -1,4 +1,315 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="https://github.com/misoraclette/misoraclette.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://github.com/misoraclette/misoraclette.github.io/" rel="alternate" type="text/html" /><updated>2018-12-23T01:55:08+09:00</updated><id>https://github.com/misoraclette/misoraclette.github.io/feed.xml</id><title type="html">Miso and Raclette programming</title><subtitle>This blog is mostly about scientific programming. My goal is to write about anything I think is useful but may not have yet a clear documentation.</subtitle><entry><title type="html">Rust for total beginners: a talkative computer</title><link href="https://github.com/misoraclette/misoraclette.github.io/2018/12/23/rust-for-total-beginners-2.html" rel="alternate" type="text/html" title="Rust for total beginners: a talkative computer" /><published>2018-12-23T00:00:00+09:00</published><updated>2018-12-23T00:00:00+09:00</updated><id>https://github.com/misoraclette/misoraclette.github.io/2018/12/23/rust-for-total-beginners-2</id><content type="html" xml:base="https://github.com/misoraclette/misoraclette.github.io/2018/12/23/rust-for-total-beginners-2.html">&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="https://github.com/misoraclette/misoraclette.github.io/feed.xml" rel="self" type="application/atom+xml" /><link href="https://github.com/misoraclette/misoraclette.github.io/" rel="alternate" type="text/html" /><updated>2018-12-29T02:19:27+09:00</updated><id>https://github.com/misoraclette/misoraclette.github.io/feed.xml</id><title type="html">Miso and Raclette programming</title><subtitle>This blog is mostly about scientific programming. My goal is to write about anything I think is useful but may not have yet a clear documentation.</subtitle><entry><title type="html">Rust for total beginners: computations</title><link href="https://github.com/misoraclette/misoraclette.github.io/2018/12/29/rust-for-total-beginners-3.html" rel="alternate" type="text/html" title="Rust for total beginners: computations" /><published>2018-12-29T00:00:00+09:00</published><updated>2018-12-29T00:00:00+09:00</updated><id>https://github.com/misoraclette/misoraclette.github.io/2018/12/29/rust-for-total-beginners-3</id><content type="html" xml:base="https://github.com/misoraclette/misoraclette.github.io/2018/12/29/rust-for-total-beginners-3.html">&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
+
+&lt;p&gt;In our &lt;a href=&quot;/2018/12/23/rust-for-total-beginners-2.html&quot;&gt;previous post&lt;/a&gt; we learned what was the meaning of our code and how to make the computer talk to us. In this post, we will discover how to make it do some computations! There will be a lot of theory to cover but it is necessary to better understand how to program.&lt;/p&gt;
+
+&lt;h2 id=&quot;variables&quot;&gt;Variables&lt;/h2&gt;
+
+&lt;p&gt;One of the most fundamental concept of programming is &lt;strong&gt;variables&lt;/strong&gt;. Until now, the computer was only printing some text. What about remembering something? Think about it, when using a calculator it is sometime interesting for us to use the last result of a computation. But, to do it, the computer needs a way to store this value somehow. This is done by using variables!&lt;/p&gt;
+
+&lt;p&gt;Unlike a calculator, we can have many different variables when we are programming. So the computer needs a way to distinguish between them. And that is why every variable has a &lt;em&gt;name&lt;/em&gt; and a &lt;em&gt;value&lt;/em&gt;. The name of the variable is used to know which variable we are talking about and the value of the variable is the data we want the computer to record. Here is how to create a variable:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-rust&quot; data-lang=&quot;rust&quot;&gt;&lt;span class=&quot;k&quot;&gt;fn&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;main&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;We used a new keyword &lt;strong&gt;let&lt;/strong&gt; to define a variable with name &lt;em&gt;a&lt;/em&gt; and value 0. We say that the value 0 is bound to the variable &lt;em&gt;a&lt;/em&gt;. Now, the computer knows that if we use the variable &lt;em&gt;a&lt;/em&gt; it will instead mean to use the value 0. How can we use it?  We can add an argument when calling the &lt;em&gt;println&lt;/em&gt; macro. Inside the text (the first argument) we want to print we can use “{}” which means “replace me with the value of the second argument”.&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-rust&quot; data-lang=&quot;rust&quot;&gt;&lt;span class=&quot;k&quot;&gt;fn&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;main&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;nd&quot;&gt;println!&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;The value of the variable a is {}&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;We can have multiple instructions between the one where we create our variable and the one where we use it. The point of using a variable is that the computer will remember it later.&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-rust&quot; data-lang=&quot;rust&quot;&gt;&lt;span class=&quot;k&quot;&gt;fn&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;main&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;nd&quot;&gt;println!&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Some printing&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;nd&quot;&gt;println!&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;will not make me forget&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;nd&quot;&gt;println!&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;the value of the &quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+    &lt;span class=&quot;nd&quot;&gt;println!&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;variable a which is {}&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;We can choose any name we want for our variable but there are some rules to follow. First, we need to use &lt;a href=&quot;https://en.wikipedia.org/wiki/ASCII&quot;&gt;ASCII characters&lt;/a&gt;, we cannot use other characters such as 愛, φ, or à (remember, we can still use them when using the &lt;em&gt;println&lt;/em&gt; macro). Second, we have to begin our variable name with a letter. Third, we cannot use blank space, the name has to be “connected”.&lt;/p&gt;
+
+&lt;p&gt;Another rule which is more like a convention: we should use &lt;a href=&quot;https://en.wikipedia.org/wiki/Snake_case&quot;&gt;snake case&lt;/a&gt; style for our variable name. When naming a variable, we may find that a long name will be better than a short one, such as “dog image”. However, how would we write it without the blank space? We could have “DogImage”, “dogImage”, “dogimage”, or even “DoGiMaGe” (please never do the last one). In Rust, it is a convention to use the snake case style which says to put an underscore “_” between the words with lowercase letters. In our case our variable would be “dog_image”. Another example, if we try to compile the following code:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-rust&quot; data-lang=&quot;rust&quot;&gt;&lt;span class=&quot;k&quot;&gt;fn&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;main&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;MyVariable&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;nd&quot;&gt;println!&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;{}&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;MyVariable&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;It compiles but the compiler issues a warning:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;warning: variable &lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt;MyVariable&lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt; should have a snake &lt;span class=&quot;k&quot;&gt;case&lt;/span&gt; name such as &lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt;my_variable&lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt;
+ &lt;span class=&quot;nt&quot;&gt;--&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; src/main.rs:2:9
+  &lt;span class=&quot;p&quot;&gt;|&lt;/span&gt;
+2 &lt;span class=&quot;p&quot;&gt;|&lt;/span&gt;     &lt;span class=&quot;nb&quot;&gt;let &lt;/span&gt;MyVariable &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; 3&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;p&quot;&gt;|&lt;/span&gt;         ^^^^^^^^^^
+  &lt;span class=&quot;p&quot;&gt;|&lt;/span&gt;
+  &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; note: &lt;span class=&quot;c&quot;&gt;#[warn(non_snake_case)] on by default&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;The compiler is warning us that we are not following the Rust convention. Our program will still work but it should be modified.&lt;/p&gt;
+
+&lt;h2 id=&quot;types&quot;&gt;Types&lt;/h2&gt;
+
+&lt;p&gt;Now, let’s talk about the value we want to save. Let say we want the computer to save the number 1 in its memory. We will write some code to do it and after being compiled the computer will remember it. But how? The computer possess many different kind of memory such as the registers, the RAM or the harddrive. When we are asking our computer to record a value it will access to one of these memory places and store the value there. When we will ask for the value later it will go to retrieve it from where it was stored.&lt;/p&gt;
+
+&lt;p&gt;Intuitively, storing the number 1 will take few space while trying to save a big image will take more. The computer needs to know the size of the value we want to store to not waste memory (or being short of it). A solution is to use &lt;strong&gt;types&lt;/strong&gt;. A type is like a label on the variable indicating which kind of variable it is. Some variables will be numbers, some other will contain text, some will be complex data combining multiple values. By knowing the type of a variable the computer is able to know exactly how much memory it needs to store it.&lt;/p&gt;
+
+&lt;p&gt;In Rust, every variable has a type and the compiler needs to know it when it is compiling. We say that Rust is a &lt;strong&gt;statically typed&lt;/strong&gt; language. However, in the previous examples we did not tell anything to the computer but it still worked. This is because the Rust compiler is a little bit smart and can infer the type of our variable directly by reading our code. But in certain situations it will not be able to infer it and will ask for our help.&lt;/p&gt;
+
+&lt;p&gt;Today we will only see variables containing numbers.&lt;/p&gt;
+
+&lt;h2 id=&quot;integers-type&quot;&gt;Integers type&lt;/h2&gt;
+
+&lt;p&gt;An integer is an element of &lt;script type=&quot;math/tex&quot;&gt;\mathbb{Z}&lt;/script&gt; such as  0, 1, 42, 789478041 or -419. But remember, after being compiled, our Rust code becomes machine code made of binary “0” and “1”. How does the computer handle numbers if it can only count to 1? The answer is: using &lt;strong&gt;binary numbers&lt;/strong&gt;. A binary number is a number expressed with only two symbols (0 and 1), such as “1001101”. Every symbol/digit is called a &lt;strong&gt;bit&lt;/strong&gt;. The more bits we have, the more numbers we can write in a binary base. If you want a better explanation, you can read more &lt;a href=&quot;https://www.mathsisfun.com/binary-number-system.html&quot;&gt;here&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;Rust provides many types to store an integer so we need to chose one. First, we need to know if our variable will handle only non-negative integers or if it is possible that both negative and non-negative integer could be stored. A &lt;strong&gt;signed binary number&lt;/strong&gt; will have one bit representing the sign (+ or -) of the number while an &lt;strong&gt;unsigned binary number&lt;/strong&gt; will not. Therefore, for the same number of bits, an unsigned binary number will be able to represent more numbers than its signed equivalent. Then, depending on the value we want to store, the number of bits will change. For example, if we are using an unsigned 8-bits binary number, we can represents the integers from 0 to 255. A signed 64-bits binary number will be able to represents the integers from -2147483648 to 2147483647.&lt;/p&gt;
+
+&lt;p&gt;The mathematical formula is simple. If we have an unsigned &lt;em&gt;n&lt;/em&gt;-bits binary number, we can store the integers from &lt;script type=&quot;math/tex&quot;&gt;0&lt;/script&gt; to &lt;script type=&quot;math/tex&quot;&gt;2^n -1&lt;/script&gt;. If we have a signed &lt;em&gt;n&lt;/em&gt;-bit number, we can store the integers from &lt;script type=&quot;math/tex&quot;&gt;-(2^{n-1})&lt;/script&gt; to &lt;script type=&quot;math/tex&quot;&gt;2^{n-1}-1&lt;/script&gt;. The choice of signed/unsigned and the number of bit will decide which type to use for our variable. Some examples of type names are &lt;em&gt;i8&lt;/em&gt;, &lt;em&gt;u8&lt;/em&gt;, &lt;em&gt;i32&lt;/em&gt; or &lt;em&gt;u128&lt;/em&gt;. The first letter (“u” or “i”) means “&lt;strong&gt;u&lt;/strong&gt;nsigned” or “signed &lt;strong&gt;i&lt;/strong&gt;nteger”, the number shows the number of bits. We can see &lt;a href=&quot;https://doc.rust-lang.org/stable/book/ch03-02-data-types.html#integer-types&quot;&gt;here&lt;/a&gt; all the possible choices for Rust integer types.&lt;/p&gt;
+
+&lt;p&gt;So, do we have to check everytime and do the computation for all the values we want to store? No! Usually, we will not have to do anything, the compiler will choose for us. Of course, depending on our program we may want to optimize our code to use the less memory possible and to be as fast as possible. In this situation we could need to use &lt;em&gt;u8&lt;/em&gt; to be really efficient. But for now the compiler choice should be good enough.&lt;/p&gt;
+
+&lt;p&gt;Great, now let’s start coding! Our program was:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-rust&quot; data-lang=&quot;rust&quot;&gt;&lt;span class=&quot;k&quot;&gt;fn&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;main&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;Like I said before, every variable has a type. So what is the type of &lt;em&gt;a&lt;/em&gt;? A common trick to discover it is to write the following:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-rust&quot; data-lang=&quot;rust&quot;&gt;&lt;span class=&quot;k&quot;&gt;fn&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;main&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;If we try to compile it, we see:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;error[E0308]: mismatched types 
+ &lt;span class=&quot;nt&quot;&gt;--&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; src/main.rs:3:9                                                                            
+  |                                                                                             
+3 |     a &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;()&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;                                                                                 
+  |         ^^ expected integral variable, found &lt;span class=&quot;o&quot;&gt;()&lt;/span&gt;                                             
+  |                                                                                             
+  &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; note: expected &lt;span class=&quot;nb&quot;&gt;type&lt;/span&gt; &lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;integer&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt;    
+             found &lt;span class=&quot;nb&quot;&gt;type&lt;/span&gt; &lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt;&lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt;                
+                            
+error: aborting due to previous error  
+                                          
+For more information about this error, try &lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt;rustc &lt;span class=&quot;nt&quot;&gt;--explain&lt;/span&gt; E0308&lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;.&lt;/span&gt;
+error: Could not compile &lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt;my_project&lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;.&lt;/span&gt;  
+
+To learn more, run the &lt;span class=&quot;nb&quot;&gt;command &lt;/span&gt;again with &lt;span class=&quot;nt&quot;&gt;--verbose&lt;/span&gt;.&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;We tried to assign a new value “()” of type &lt;em&gt;()&lt;/em&gt; to the variable &lt;em&gt;a&lt;/em&gt; of type &lt;em&gt;integer&lt;/em&gt; so the compiler threw an error. This is a quick way to find the type of a variable. So, here the type of &lt;em&gt;a&lt;/em&gt; is &lt;em&gt;integer&lt;/em&gt;. Wait, wasn’t it supposed to begin with a letter and then a number? Well, yes. However in this case we did not really choose a type for &lt;em&gt;a&lt;/em&gt; (we did not write anything), we only bound the value 0 to &lt;em&gt;a&lt;/em&gt;. The compiler assumed that it was an integer (of type &lt;em&gt;integer&lt;/em&gt;) and, if not more information is given, will choose as default to use the &lt;em&gt;i32&lt;/em&gt; type. However, if later in the code the compiler infers that it is (for example) &lt;em&gt;u128&lt;/em&gt; then it will automaticaly change the &lt;em&gt;integer&lt;/em&gt; type into &lt;em&gt;u128&lt;/em&gt;.&lt;/p&gt;
+
+&lt;p&gt;We do not really need to do it, but how can we tell the compiler that for example we want our variable &lt;em&gt;a&lt;/em&gt; to be of type &lt;em&gt;i64&lt;/em&gt;? We just need to add a &lt;strong&gt;type annotation&lt;/strong&gt;, like this:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-rust&quot; data-lang=&quot;rust&quot;&gt;&lt;span class=&quot;k&quot;&gt;fn&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;main&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;i64&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;This time if we try to compile it we will received this error:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;error[E0308]: mismatched types 
+ &lt;span class=&quot;nt&quot;&gt;--&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; src/main.rs:3:9                                                                            
+  |                                                                                             
+3 |     a &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;()&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;                                                                                 
+  |         ^^ expected integral variable, found &lt;span class=&quot;o&quot;&gt;()&lt;/span&gt;                                             
+  |                                                                                             
+  &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; note: expected &lt;span class=&quot;nb&quot;&gt;type&lt;/span&gt; &lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt;i64&lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt;    
+             found &lt;span class=&quot;nb&quot;&gt;type&lt;/span&gt; &lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt;&lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt;                
+                            
+error: aborting due to previous error  
+                                          
+For more information about this error, try &lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt;rustc &lt;span class=&quot;nt&quot;&gt;--explain&lt;/span&gt; E0308&lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;.&lt;/span&gt;
+error: Could not compile &lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt;my_project&lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;.&lt;/span&gt;  
+
+To learn more, run the &lt;span class=&quot;nb&quot;&gt;command &lt;/span&gt;again with &lt;span class=&quot;nt&quot;&gt;--verbose&lt;/span&gt;.&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;Hooray! The variable &lt;em&gt;a&lt;/em&gt; is now an &lt;em&gt;i64&lt;/em&gt;. Now, let’s do some computations!&lt;/p&gt;
+
+&lt;h2 id=&quot;manipulating-integers&quot;&gt;Manipulating integers&lt;/h2&gt;
+
+&lt;p&gt;We have seen a lot of theory, now is the time to code! Computers are really good to, well, compute things. One of the most basic operation is to add numbers. In Rust, it is pretty straightforward:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-rust&quot; data-lang=&quot;rust&quot;&gt;&lt;span class=&quot;k&quot;&gt;fn&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;main&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;4&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;b&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;nd&quot;&gt;println!&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;a+b={}&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;b&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;And it works! We could also substract or multiply easily:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-rust&quot; data-lang=&quot;rust&quot;&gt;&lt;span class=&quot;k&quot;&gt;fn&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;main&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;4&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;b&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;nd&quot;&gt;println!&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;a+b={}&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;b&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;// Addition&lt;/span&gt;
+    &lt;span class=&quot;nd&quot;&gt;println!&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;a-b={}&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;-&lt;span class=&quot;n&quot;&gt;b&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;// Substraction&lt;/span&gt;
+    &lt;span class=&quot;nd&quot;&gt;println!&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;a*b={}&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;b&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;// Multiplication&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;In the programming world, the &lt;strong&gt;*&lt;/strong&gt; operator means &lt;script type=&quot;math/tex&quot;&gt;\times&lt;/script&gt;. By the way, in this example I wrote &lt;strong&gt;comments&lt;/strong&gt;. We can write anything we want if we first write “//”, the compiler will consider that it is a comment until the beginning of a new line. Comments in programming are VERY importants. It is a very good habit to write comments describing what our code is doing because maybe in the future it will be read by other people and they may not understand it without explanations. Worse, it often happens that the same person who wrote the code has to read it later and find himself incapable of understanding it. So please, try to comment your code!&lt;/p&gt;
+
+&lt;p&gt;What about division? To divide we use the “/” operator:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-rust&quot; data-lang=&quot;rust&quot;&gt;&lt;span class=&quot;k&quot;&gt;fn&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;main&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;20&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;b&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;nd&quot;&gt;println!&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;a/b={}&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;/&lt;span class=&quot;n&quot;&gt;b&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;// Division&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;And the result is:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;a/b&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;nt&quot;&gt;-4&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;That is good. What about &lt;script type=&quot;math/tex&quot;&gt;\frac{15}{2}&lt;/script&gt;?&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-rust&quot; data-lang=&quot;rust&quot;&gt;&lt;span class=&quot;k&quot;&gt;fn&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;main&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;15&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;b&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;nd&quot;&gt;println!&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;a/b={}&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;/&lt;span class=&quot;n&quot;&gt;b&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;// Division&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;a/b&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;7&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;Wait, what? It should be 7.5 but the computer gave 7, why? The answer is simple. When we are using the operators +, -, * or / on two integers, the result will be an integer. However, &lt;script type=&quot;math/tex&quot;&gt;\frac{15}{2}&lt;/script&gt; is not an integer, it is a rational number, so the computer cannot give us the correct answer. Instead, it gives us the &lt;em&gt;quotient&lt;/em&gt; of the &lt;a href=&quot;https://en.wikipedia.org/wiki/Euclidean_division&quot;&gt;euclidian division&lt;/a&gt;. In our case, we can write &lt;script type=&quot;math/tex&quot;&gt;\frac{15}{2}&lt;/script&gt; as 15=2*7+1. 7 is the quotient and 1 is the &lt;em&gt;remainder&lt;/em&gt; of the euclidian division.&lt;/p&gt;
+
+&lt;p&gt;If we want to get the remainder we can use the symbol “%”:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-rust&quot; data-lang=&quot;rust&quot;&gt;&lt;span class=&quot;k&quot;&gt;fn&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;main&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;15&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;b&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;nd&quot;&gt;println!&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;a&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;%b&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;={}&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;%&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;b&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;// Remainder of the euclidian division&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;a%b&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;1&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;It seems difficult to use the division with integers because we may result with rational numbers. One way to avoid this is to use &lt;strong&gt;floating-point numbers&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;h2 id=&quot;floating-point-numbers&quot;&gt;Floating-point numbers&lt;/h2&gt;
+
+&lt;p&gt;Using integers to make computation is really easy for a computer. However, when we begin to want to use rational numbers or real numbers everything becomes more complicated. How would we represent a real number with a non predictible decimal part such as &lt;script type=&quot;math/tex&quot;&gt;\pi&lt;/script&gt; in a computer? Or even a rational number with an infinite decimal part such as $\frac{1}{3}=0.33333333..$? Besides, many problems arise when doing operations. Therefore, scientists all over the world discussed about it and in 1985 a standard was created: the &lt;a href=&quot;https://en.wikipedia.org/wiki/IEEE_754&quot;&gt;IEEE 754 for Floating-Point Arithmetic (IEEE754)&lt;/a&gt;. It gave a unified vision on how should computers handle decimal numbers.&lt;/p&gt;
+
+&lt;p&gt;Rust gives two types for floating-point numbers: &lt;em&gt;f32&lt;/em&gt; and &lt;em&gt;f64&lt;/em&gt;. The numbers in the type names once again mean the number of bits to represent the decimal value. However, as with integers, the compiler is able to infer that we want to use a float (floating-point) type just by reading our code:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-rust&quot; data-lang=&quot;rust&quot;&gt;&lt;span class=&quot;k&quot;&gt;fn&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;main&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mf&quot;&gt;12.6&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;();&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;// creates a type error&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;error[E0308]: mismatched types 
+ &lt;span class=&quot;nt&quot;&gt;--&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; src/main.rs:3:9                                                                            
+  |                                                                                             
+3 |     a &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;()&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;                                                                                 
+  |         ^^ expected integral variable, found &lt;span class=&quot;o&quot;&gt;()&lt;/span&gt;                                             
+  |                                                                                             
+  &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; note: expected &lt;span class=&quot;nb&quot;&gt;type&lt;/span&gt; &lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;float&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt;    
+             found &lt;span class=&quot;nb&quot;&gt;type&lt;/span&gt; &lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt;&lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt;                
+                            
+error: aborting due to previous error  
+                                          
+For more information about this error, try &lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt;rustc &lt;span class=&quot;nt&quot;&gt;--explain&lt;/span&gt; E0308&lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;.&lt;/span&gt;
+error: Could not compile &lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt;my_project&lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;.&lt;/span&gt;  
+
+To learn more, run the &lt;span class=&quot;nb&quot;&gt;command &lt;/span&gt;again with &lt;span class=&quot;nt&quot;&gt;--verbose&lt;/span&gt;.&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;If we do not precise it the compiler will choose &lt;em&gt;f64&lt;/em&gt; by default because on modern CPUs it will be almost as fast as &lt;em&gt;f32&lt;/em&gt; but with more precision (more bits). And, again, if we want to force the usage of a particular type we can use type annotation:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-rust&quot; data-lang=&quot;rust&quot;&gt;&lt;span class=&quot;k&quot;&gt;fn&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;main&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;f32&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mf&quot;&gt;12.6&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;();&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;// creates a type error&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;error[E0308]: mismatched types 
+ &lt;span class=&quot;nt&quot;&gt;--&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; src/main.rs:3:9                                                                            
+  |                                                                                             
+3 |     a &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;()&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;                                                                                 
+  |         ^^ expected integral variable, found &lt;span class=&quot;o&quot;&gt;()&lt;/span&gt;                                             
+  |                                                                                             
+  &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; note: expected &lt;span class=&quot;nb&quot;&gt;type&lt;/span&gt; &lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt;f32&lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt;    
+             found &lt;span class=&quot;nb&quot;&gt;type&lt;/span&gt; &lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt;&lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt;                
+                            
+error: aborting due to previous error  
+                                          
+For more information about this error, try &lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt;rustc &lt;span class=&quot;nt&quot;&gt;--explain&lt;/span&gt; E0308&lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;.&lt;/span&gt;
+error: Could not compile &lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt;my_project&lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;.&lt;/span&gt;  
+
+To learn more, run the &lt;span class=&quot;nb&quot;&gt;command &lt;/span&gt;again with &lt;span class=&quot;nt&quot;&gt;--verbose&lt;/span&gt;.&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;h2 id=&quot;manipulating-floats&quot;&gt;Manipulating floats&lt;/h2&gt;
+
+&lt;p&gt;Floats and integers share the same operators:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-rust&quot; data-lang=&quot;rust&quot;&gt;&lt;span class=&quot;k&quot;&gt;fn&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;main&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mf&quot;&gt;15.0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;b&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mf&quot;&gt;2.0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;nd&quot;&gt;println!&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;a+b={}&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;b&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;// Addition&lt;/span&gt;
+    &lt;span class=&quot;nd&quot;&gt;println!&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;a-b={}&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;-&lt;span class=&quot;n&quot;&gt;b&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;// Substraction&lt;/span&gt;
+    &lt;span class=&quot;nd&quot;&gt;println!&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;a*b={}&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;b&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;// Multiplication&lt;/span&gt;
+    &lt;span class=&quot;nd&quot;&gt;println!&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;a/b={}&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;/&lt;span class=&quot;n&quot;&gt;b&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;// Division&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;But this time the division gives the expected result:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;a+b&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;17
+a-b&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;13
+a&lt;span class=&quot;k&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;b&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;30
+a/b&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;7.5&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;Note that in the code we did not tell the compiler that &lt;em&gt;a&lt;/em&gt; and &lt;em&gt;b&lt;/em&gt; were floats, yet it infered it was the case because we wrote 15.0 and 2.0. If we just write 15 and 2 the compiler will infer that they are integers.&lt;/p&gt;
+
+&lt;p&gt;We can also use the “%” operator (named &lt;strong&gt;modulo&lt;/strong&gt;) to get the remainder of the euclidian division:&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-rust&quot; data-lang=&quot;rust&quot;&gt;&lt;span class=&quot;k&quot;&gt;fn&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;main&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mf&quot;&gt;3.5&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;b&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mf&quot;&gt;2.0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;nd&quot;&gt;println!&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;a&lt;/span&gt;&lt;span class=&quot;si&quot;&gt;%b&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;={}&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;%&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;b&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;// Remainder&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;a%b&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;1.5&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;What about mixing integers and floats?&lt;/p&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-rust&quot; data-lang=&quot;rust&quot;&gt;&lt;span class=&quot;k&quot;&gt;fn&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;main&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;f32&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mf&quot;&gt;3.5&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;let&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;b&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;i32&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;nd&quot;&gt;println!&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;a+b={}&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;b&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;// Will it work?&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-bash&quot; data-lang=&quot;bash&quot;&gt;error[E0277]: cannot add &lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt;i32&lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt; to &lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt;f32&lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt;
+ &lt;span class=&quot;nt&quot;&gt;--&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; src/main.rs:4:25
+  |
+4 |     println!&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;a+b={}&quot;&lt;/span&gt;, a+b&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; // Will it work?
+  |                         ^ no implementation &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt;f32 + i32&lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt;
+  |
+  &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;help&lt;/span&gt;: the trait &lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt;std::ops::Add&amp;lt;i32&amp;gt;&lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt; is not implemented &lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt;f32&lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt;
+
+error: aborting due to previous error
+
+For more information about this error, try &lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt;rustc &lt;span class=&quot;nt&quot;&gt;--explain&lt;/span&gt; E0277&lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;.&lt;/span&gt;
+error: Could not compile &lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt;my_project&lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;.&lt;/span&gt;
+
+To learn more, run the &lt;span class=&quot;nb&quot;&gt;command &lt;/span&gt;again with &lt;span class=&quot;nt&quot;&gt;--verbose&lt;/span&gt;.&lt;/code&gt;&lt;/pre&gt;&lt;/figure&gt;
+
+&lt;p&gt;The error is very explicit: we “cannot add &lt;em&gt;i32&lt;/em&gt; to &lt;em&gt;f32&lt;/em&gt;”. In Rust, we need our numbers to share the same type if we want to use an operator on them. It is not only an “integers vs floats” problem, we will have the same result if we try to add two integers with different types. Try it!&lt;/p&gt;
+
+&lt;h2 id=&quot;exercises&quot;&gt;Exercises&lt;/h2&gt;
+
+&lt;p&gt;From this post I will give some exercices at the end of each post. Programming is a skill that cannot be acquired only by reading, instead it requires you to actively think on how to solve some problems. It also require some curiosity, I highly encourage you to try anything you want to understand the limits of what you can do and what you cannot.&lt;/p&gt;
+
+&lt;p&gt;Here are some exercises about variables and types:&lt;/p&gt;
+
+&lt;p&gt;1) Try to add an integer and a float. What happens?&lt;/p&gt;
+
+&lt;p&gt;2) Can we create a variable &lt;em&gt;c&lt;/em&gt; from the result of &lt;em&gt;a&lt;/em&gt; and &lt;em&gt;b&lt;/em&gt;?&lt;/p&gt;
+
+&lt;p&gt;3) The type &lt;em&gt;u8&lt;/em&gt; can only contain integers from 0 to 255. What happens if we try to bound the value 256 to an &lt;em&gt;u8&lt;/em&gt; variable? What if &lt;em&gt;a&lt;/em&gt; is an &lt;em&gt;u8&lt;/em&gt; binding the value 1 and &lt;em&gt;b&lt;/em&gt; is an &lt;em&gt;u8&lt;/em&gt; binding the value 255, what happens if you try to add &lt;em&gt;a&lt;/em&gt; and &lt;em&gt;b&lt;/em&gt;?&lt;/p&gt;
+
+&lt;h2 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h2&gt;
+
+&lt;p&gt;In this post we discovered how to do some computations on numbers. More precisely, we learned about variables and their types. This post contained a lot of theory but it was important to understand how to program. In the next post we will see a new type representing something else than numbers: &lt;em&gt;booleans&lt;/em&gt;. Until now, our program was following all the instructions one by one. We will see how to have instructions that depend on some conditions.&lt;/p&gt;</content><author><name></name></author><summary type="html">Introduction</summary></entry><entry><title type="html">Rust for total beginners: a talkative computer</title><link href="https://github.com/misoraclette/misoraclette.github.io/2018/12/23/rust-for-total-beginners-2.html" rel="alternate" type="text/html" title="Rust for total beginners: a talkative computer" /><published>2018-12-23T00:00:00+09:00</published><updated>2018-12-23T00:00:00+09:00</updated><id>https://github.com/misoraclette/misoraclette.github.io/2018/12/23/rust-for-total-beginners-2</id><content type="html" xml:base="https://github.com/misoraclette/misoraclette.github.io/2018/12/23/rust-for-total-beginners-2.html">&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
 
 &lt;p&gt;In our &lt;a href=&quot;/2018/12/22/rust-for-total-beginners-1.html&quot;&gt;previous post&lt;/a&gt; we have seen how to compile our first Rust program. But we did not really do anything, everything was already written for us. In this post we will discover how to change the code and make the computer talk to us!&lt;/p&gt;
 
@@ -111,7 +422,7 @@ To learn more, run the &lt;span class=&quot;nb&quot;&gt;command &lt;/span&gt;aga
 
 &lt;h2 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h2&gt;
 
-&lt;p&gt;In this post we have seen what our program was really doing and we modified it to make our computer talked to us. However, it is still us who told it everything it has to say. In the next part we will make the computer do some computations for us!&lt;/p&gt;</content><author><name></name></author><summary type="html">Introduction</summary></entry><entry><title type="html">Rust for total beginners: Hello World!</title><link href="https://github.com/misoraclette/misoraclette.github.io/2018/12/22/rust-for-total-beginners-1.html" rel="alternate" type="text/html" title="Rust for total beginners: Hello World!" /><published>2018-12-22T00:00:00+09:00</published><updated>2018-12-22T00:00:00+09:00</updated><id>https://github.com/misoraclette/misoraclette.github.io/2018/12/22/rust-for-total-beginners-1</id><content type="html" xml:base="https://github.com/misoraclette/misoraclette.github.io/2018/12/22/rust-for-total-beginners-1.html">&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
+&lt;p&gt;In this post we have seen what our program was really doing and we modified it to make our computer talked to us. However, it is still us who told it everything it has to say. In the next &lt;a href=&quot;/2018/12/29/rust-for-total-beginners-3.html&quot;&gt;post&lt;/a&gt; we will make the computer do some computations for us!&lt;/p&gt;</content><author><name></name></author><summary type="html">Introduction</summary></entry><entry><title type="html">Rust for total beginners: Hello World!</title><link href="https://github.com/misoraclette/misoraclette.github.io/2018/12/22/rust-for-total-beginners-1.html" rel="alternate" type="text/html" title="Rust for total beginners: Hello World!" /><published>2018-12-22T00:00:00+09:00</published><updated>2018-12-22T00:00:00+09:00</updated><id>https://github.com/misoraclette/misoraclette.github.io/2018/12/22/rust-for-total-beginners-1</id><content type="html" xml:base="https://github.com/misoraclette/misoraclette.github.io/2018/12/22/rust-for-total-beginners-1.html">&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
 
 &lt;p&gt;I often see on forums that the Rust language is great but not adapted for beginners as a first language. I disagree. Personally, I have discovered programming with the C language and I do not think that my experience would have been that much different if it was Rust. However, there are few tutorials aimed at total beginners. That’s why I will try to write a serie of posts to make an introduction to the Rust language requiring no knowledge of programming. Please note that I am not a Rust expert myself so I welcome any critic of my code and explanations!&lt;/p&gt;
 

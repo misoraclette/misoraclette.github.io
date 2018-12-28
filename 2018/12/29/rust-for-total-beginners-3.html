@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.5.0 -->
+<title>Rust for total beginners: computations | Miso and Raclette programming</title>
+<meta name="generator" content="Jekyll v3.8.5" />
+<meta property="og:title" content="Rust for total beginners: computations" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Introduction" />
+<meta property="og:description" content="Introduction" />
+<link rel="canonical" href="https://github.com/misoraclette/misoraclette.github.io/2018/12/29/rust-for-total-beginners-3.html" />
+<meta property="og:url" content="https://github.com/misoraclette/misoraclette.github.io/2018/12/29/rust-for-total-beginners-3.html" />
+<meta property="og:site_name" content="Miso and Raclette programming" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2018-12-29T00:00:00+09:00" />
+<script type="application/ld+json">
+{"description":"Introduction","@type":"BlogPosting","url":"https://github.com/misoraclette/misoraclette.github.io/2018/12/29/rust-for-total-beginners-3.html","headline":"Rust for total beginners: computations","dateModified":"2018-12-29T00:00:00+09:00","datePublished":"2018-12-29T00:00:00+09:00","mainEntityOfPage":{"@type":"WebPage","@id":"https://github.com/misoraclette/misoraclette.github.io/2018/12/29/rust-for-total-beginners-3.html"},"@context":"http://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/assets/main.css"><link type="application/atom+xml" rel="alternate" href="https://github.com/misoraclette/misoraclette.github.io/feed.xml" title="Miso and Raclette programming" /></head>
+<body>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+  tex2jax: {
+  inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+  processEscapes: true
+  }
+  });
+</script>
+
+<script type="text/javascript" async
+	src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML">
+  </script>
+
+
+
+<header class="site-header" role="banner">
+  <div class="wrapper">
+    
+    
+    <a class="site-title" rel="author" href="/">Miso and Raclette programming</a>
+
+    
+    <nav class="site-nav">
+      <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+      <label for="nav-trigger">
+	<span class="menu-icon">
+	  <svg viewBox="0 0 18 15" width="18px" height="15px">
+	    <path fill="#424242" d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.031C17.335,0,18,0.665,18,1.484L18,1.484z"/>
+	    <path fill="#424242" d="M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0c0-0.82,0.665-1.484,1.484-1.484 h15.031C17.335,6.031,18,6.696,18,7.516L18,7.516z"/>
+	    <path fill="#424242" d="M18,13.516C18,14.335,17.335,15,16.516,15H1.484C0.665,15,0,14.335,0,13.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.031C17.335,12.031,18,12.696,18,13.516L18,13.516z"/>
+	  </svg>
+	</span>
+      </label>
+
+      <div class="trigger">
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+      </div>
+    </nav>
+    
+  </div>
+  </header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">Rust for total beginners: computations</h1>
+    <p class="post-meta">
+      <time class="dt-published" datetime="2018-12-29T00:00:00+09:00" itemprop="datePublished">Dec 29, 2018
+      </time></p>
+  </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <h2 id="introduction">Introduction</h2>
+
+<p>In our <a href="/2018/12/23/rust-for-total-beginners-2.html">previous post</a> we learned what was the meaning of our code and how to make the computer talk to us. In this post, we will discover how to make it do some computations! There will be a lot of theory to cover but it is necessary to better understand how to program.</p>
+
+<h2 id="variables">Variables</h2>
+
+<p>One of the most fundamental concept of programming is <strong>variables</strong>. Until now, the computer was only printing some text. What about remembering something? Think about it, when using a calculator it is sometime interesting for us to use the last result of a computation. But, to do it, the computer needs a way to store this value somehow. This is done by using variables!</p>
+
+<p>Unlike a calculator, we can have many different variables when we are programming. So the computer needs a way to distinguish between them. And that is why every variable has a <em>name</em> and a <em>value</em>. The name of the variable is used to know which variable we are talking about and the value of the variable is the data we want the computer to record. Here is how to create a variable:</p>
+
+<figure class="highlight"><pre><code class="language-rust" data-lang="rust"><span class="k">fn</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">let</span> <span class="n">a</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span></code></pre></figure>
+
+<p>We used a new keyword <strong>let</strong> to define a variable with name <em>a</em> and value 0. We say that the value 0 is bound to the variable <em>a</em>. Now, the computer knows that if we use the variable <em>a</em> it will instead mean to use the value 0. How can we use it?  We can add an argument when calling the <em>println</em> macro. Inside the text (the first argument) we want to print we can use “{}” which means “replace me with the value of the second argument”.</p>
+
+<figure class="highlight"><pre><code class="language-rust" data-lang="rust"><span class="k">fn</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">let</span> <span class="n">a</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="nd">println!</span><span class="p">(</span><span class="s">"The value of the variable a is {}"</span><span class="p">,</span> <span class="n">a</span><span class="p">);</span>
+<span class="p">}</span></code></pre></figure>
+
+<p>We can have multiple instructions between the one where we create our variable and the one where we use it. The point of using a variable is that the computer will remember it later.</p>
+
+<figure class="highlight"><pre><code class="language-rust" data-lang="rust"><span class="k">fn</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">let</span> <span class="n">a</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="nd">println!</span><span class="p">(</span><span class="s">"Some printing"</span><span class="p">);</span>
+    <span class="nd">println!</span><span class="p">(</span><span class="s">"will not make me forget"</span><span class="p">);</span>
+    <span class="nd">println!</span><span class="p">(</span><span class="s">"the value of the "</span><span class="p">);</span>
+    <span class="nd">println!</span><span class="p">(</span><span class="s">"variable a which is {}"</span><span class="p">,</span> <span class="n">a</span><span class="p">);</span>
+<span class="p">}</span></code></pre></figure>
+
+<p>We can choose any name we want for our variable but there are some rules to follow. First, we need to use <a href="https://en.wikipedia.org/wiki/ASCII">ASCII characters</a>, we cannot use other characters such as 愛, φ, or à (remember, we can still use them when using the <em>println</em> macro). Second, we have to begin our variable name with a letter. Third, we cannot use blank space, the name has to be “connected”.</p>
+
+<p>Another rule which is more like a convention: we should use <a href="https://en.wikipedia.org/wiki/Snake_case">snake case</a> style for our variable name. When naming a variable, we may find that a long name will be better than a short one, such as “dog image”. However, how would we write it without the blank space? We could have “DogImage”, “dogImage”, “dogimage”, or even “DoGiMaGe” (please never do the last one). In Rust, it is a convention to use the snake case style which says to put an underscore “_” between the words with lowercase letters. In our case our variable would be “dog_image”. Another example, if we try to compile the following code:</p>
+
+<figure class="highlight"><pre><code class="language-rust" data-lang="rust"><span class="k">fn</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">let</span> <span class="n">MyVariable</span> <span class="o">=</span> <span class="mi">3</span><span class="p">;</span>
+    <span class="nd">println!</span><span class="p">(</span><span class="s">"{}"</span><span class="p">,</span> <span class="n">MyVariable</span><span class="p">);</span>
+<span class="p">}</span></code></pre></figure>
+
+<p>It compiles but the compiler issues a warning:</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">warning: variable <span class="sb">`</span>MyVariable<span class="sb">`</span> should have a snake <span class="k">case</span> name such as <span class="sb">`</span>my_variable<span class="sb">`</span>
+ <span class="nt">--</span><span class="o">&gt;</span> src/main.rs:2:9
+  <span class="p">|</span>
+2 <span class="p">|</span>     <span class="nb">let </span>MyVariable <span class="o">=</span> 3<span class="p">;</span>
+  <span class="p">|</span>         ^^^^^^^^^^
+  <span class="p">|</span>
+  <span class="o">=</span> note: <span class="c">#[warn(non_snake_case)] on by default</span></code></pre></figure>
+
+<p>The compiler is warning us that we are not following the Rust convention. Our program will still work but it should be modified.</p>
+
+<h2 id="types">Types</h2>
+
+<p>Now, let’s talk about the value we want to save. Let say we want the computer to save the number 1 in its memory. We will write some code to do it and after being compiled the computer will remember it. But how? The computer possess many different kind of memory such as the registers, the RAM or the harddrive. When we are asking our computer to record a value it will access to one of these memory places and store the value there. When we will ask for the value later it will go to retrieve it from where it was stored.</p>
+
+<p>Intuitively, storing the number 1 will take few space while trying to save a big image will take more. The computer needs to know the size of the value we want to store to not waste memory (or being short of it). A solution is to use <strong>types</strong>. A type is like a label on the variable indicating which kind of variable it is. Some variables will be numbers, some other will contain text, some will be complex data combining multiple values. By knowing the type of a variable the computer is able to know exactly how much memory it needs to store it.</p>
+
+<p>In Rust, every variable has a type and the compiler needs to know it when it is compiling. We say that Rust is a <strong>statically typed</strong> language. However, in the previous examples we did not tell anything to the computer but it still worked. This is because the Rust compiler is a little bit smart and can infer the type of our variable directly by reading our code. But in certain situations it will not be able to infer it and will ask for our help.</p>
+
+<p>Today we will only see variables containing numbers.</p>
+
+<h2 id="integers-type">Integers type</h2>
+
+<p>An integer is an element of <script type="math/tex">\mathbb{Z}</script> such as  0, 1, 42, 789478041 or -419. But remember, after being compiled, our Rust code becomes machine code made of binary “0” and “1”. How does the computer handle numbers if it can only count to 1? The answer is: using <strong>binary numbers</strong>. A binary number is a number expressed with only two symbols (0 and 1), such as “1001101”. Every symbol/digit is called a <strong>bit</strong>. The more bits we have, the more numbers we can write in a binary base. If you want a better explanation, you can read more <a href="https://www.mathsisfun.com/binary-number-system.html">here</a>.</p>
+
+<p>Rust provides many types to store an integer so we need to chose one. First, we need to know if our variable will handle only non-negative integers or if it is possible that both negative and non-negative integer could be stored. A <strong>signed binary number</strong> will have one bit representing the sign (+ or -) of the number while an <strong>unsigned binary number</strong> will not. Therefore, for the same number of bits, an unsigned binary number will be able to represent more numbers than its signed equivalent. Then, depending on the value we want to store, the number of bits will change. For example, if we are using an unsigned 8-bits binary number, we can represents the integers from 0 to 255. A signed 64-bits binary number will be able to represents the integers from -2147483648 to 2147483647.</p>
+
+<p>The mathematical formula is simple. If we have an unsigned <em>n</em>-bits binary number, we can store the integers from <script type="math/tex">0</script> to <script type="math/tex">2^n -1</script>. If we have a signed <em>n</em>-bit number, we can store the integers from <script type="math/tex">-(2^{n-1})</script> to <script type="math/tex">2^{n-1}-1</script>. The choice of signed/unsigned and the number of bit will decide which type to use for our variable. Some examples of type names are <em>i8</em>, <em>u8</em>, <em>i32</em> or <em>u128</em>. The first letter (“u” or “i”) means “<strong>u</strong>nsigned” or “signed <strong>i</strong>nteger”, the number shows the number of bits. We can see <a href="https://doc.rust-lang.org/stable/book/ch03-02-data-types.html#integer-types">here</a> all the possible choices for Rust integer types.</p>
+
+<p>So, do we have to check everytime and do the computation for all the values we want to store? No! Usually, we will not have to do anything, the compiler will choose for us. Of course, depending on our program we may want to optimize our code to use the less memory possible and to be as fast as possible. In this situation we could need to use <em>u8</em> to be really efficient. But for now the compiler choice should be good enough.</p>
+
+<p>Great, now let’s start coding! Our program was:</p>
+
+<figure class="highlight"><pre><code class="language-rust" data-lang="rust"><span class="k">fn</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">let</span> <span class="n">a</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span></code></pre></figure>
+
+<p>Like I said before, every variable has a type. So what is the type of <em>a</em>? A common trick to discover it is to write the following:</p>
+
+<figure class="highlight"><pre><code class="language-rust" data-lang="rust"><span class="k">fn</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">let</span> <span class="n">a</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="n">a</span> <span class="o">=</span> <span class="p">();</span>
+<span class="p">}</span></code></pre></figure>
+
+<p>If we try to compile it, we see:</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">error[E0308]: mismatched types 
+ <span class="nt">--</span><span class="o">&gt;</span> src/main.rs:3:9                                                                            
+  |                                                                                             
+3 |     a <span class="o">=</span> <span class="o">()</span><span class="p">;</span>                                                                                 
+  |         ^^ expected integral variable, found <span class="o">()</span>                                             
+  |                                                                                             
+  <span class="o">=</span> note: expected <span class="nb">type</span> <span class="sb">`</span><span class="o">{</span>integer<span class="o">}</span><span class="sb">`</span>    
+             found <span class="nb">type</span> <span class="sb">`</span><span class="o">()</span><span class="sb">`</span>                
+                            
+error: aborting due to previous error  
+                                          
+For more information about this error, try <span class="sb">`</span>rustc <span class="nt">--explain</span> E0308<span class="sb">`</span><span class="nb">.</span>
+error: Could not compile <span class="sb">`</span>my_project<span class="sb">`</span><span class="nb">.</span>  
+
+To learn more, run the <span class="nb">command </span>again with <span class="nt">--verbose</span>.</code></pre></figure>
+
+<p>We tried to assign a new value “()” of type <em>()</em> to the variable <em>a</em> of type <em>integer</em> so the compiler threw an error. This is a quick way to find the type of a variable. So, here the type of <em>a</em> is <em>integer</em>. Wait, wasn’t it supposed to begin with a letter and then a number? Well, yes. However in this case we did not really choose a type for <em>a</em> (we did not write anything), we only bound the value 0 to <em>a</em>. The compiler assumed that it was an integer (of type <em>integer</em>) and, if not more information is given, will choose as default to use the <em>i32</em> type. However, if later in the code the compiler infers that it is (for example) <em>u128</em> then it will automaticaly change the <em>integer</em> type into <em>u128</em>.</p>
+
+<p>We do not really need to do it, but how can we tell the compiler that for example we want our variable <em>a</em> to be of type <em>i64</em>? We just need to add a <strong>type annotation</strong>, like this:</p>
+
+<figure class="highlight"><pre><code class="language-rust" data-lang="rust"><span class="k">fn</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">let</span> <span class="n">a</span><span class="p">:</span> <span class="nb">i64</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="n">a</span><span class="o">=</span><span class="p">();</span>
+<span class="p">}</span></code></pre></figure>
+
+<p>This time if we try to compile it we will received this error:</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">error[E0308]: mismatched types 
+ <span class="nt">--</span><span class="o">&gt;</span> src/main.rs:3:9                                                                            
+  |                                                                                             
+3 |     a <span class="o">=</span> <span class="o">()</span><span class="p">;</span>                                                                                 
+  |         ^^ expected integral variable, found <span class="o">()</span>                                             
+  |                                                                                             
+  <span class="o">=</span> note: expected <span class="nb">type</span> <span class="sb">`</span>i64<span class="sb">`</span>    
+             found <span class="nb">type</span> <span class="sb">`</span><span class="o">()</span><span class="sb">`</span>                
+                            
+error: aborting due to previous error  
+                                          
+For more information about this error, try <span class="sb">`</span>rustc <span class="nt">--explain</span> E0308<span class="sb">`</span><span class="nb">.</span>
+error: Could not compile <span class="sb">`</span>my_project<span class="sb">`</span><span class="nb">.</span>  
+
+To learn more, run the <span class="nb">command </span>again with <span class="nt">--verbose</span>.</code></pre></figure>
+
+<p>Hooray! The variable <em>a</em> is now an <em>i64</em>. Now, let’s do some computations!</p>
+
+<h2 id="manipulating-integers">Manipulating integers</h2>
+
+<p>We have seen a lot of theory, now is the time to code! Computers are really good to, well, compute things. One of the most basic operation is to add numbers. In Rust, it is pretty straightforward:</p>
+
+<figure class="highlight"><pre><code class="language-rust" data-lang="rust"><span class="k">fn</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">let</span> <span class="n">a</span> <span class="o">=</span> <span class="err">-</span><span class="mi">4</span><span class="p">;</span>
+    <span class="k">let</span> <span class="n">b</span> <span class="o">=</span> <span class="mi">5</span><span class="p">;</span>
+    <span class="nd">println!</span><span class="p">(</span><span class="s">"a+b={}"</span><span class="p">,</span> <span class="n">a</span><span class="o">+</span><span class="n">b</span><span class="p">);</span>
+<span class="p">}</span></code></pre></figure>
+
+<p>And it works! We could also substract or multiply easily:</p>
+
+<figure class="highlight"><pre><code class="language-rust" data-lang="rust"><span class="k">fn</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">let</span> <span class="n">a</span> <span class="o">=</span> <span class="err">-</span><span class="mi">4</span><span class="p">;</span>
+    <span class="k">let</span> <span class="n">b</span> <span class="o">=</span> <span class="mi">5</span><span class="p">;</span>
+    <span class="nd">println!</span><span class="p">(</span><span class="s">"a+b={}"</span><span class="p">,</span> <span class="n">a</span><span class="o">+</span><span class="n">b</span><span class="p">);</span> <span class="c">// Addition</span>
+    <span class="nd">println!</span><span class="p">(</span><span class="s">"a-b={}"</span><span class="p">,</span> <span class="n">a</span>-<span class="n">b</span><span class="p">);</span> <span class="c">// Substraction</span>
+    <span class="nd">println!</span><span class="p">(</span><span class="s">"a*b={}"</span><span class="p">,</span> <span class="n">a</span><span class="o">*</span><span class="n">b</span><span class="p">);</span> <span class="c">// Multiplication</span>
+<span class="p">}</span></code></pre></figure>
+
+<p>In the programming world, the <strong>*</strong> operator means <script type="math/tex">\times</script>. By the way, in this example I wrote <strong>comments</strong>. We can write anything we want if we first write “//”, the compiler will consider that it is a comment until the beginning of a new line. Comments in programming are VERY importants. It is a very good habit to write comments describing what our code is doing because maybe in the future it will be read by other people and they may not understand it without explanations. Worse, it often happens that the same person who wrote the code has to read it later and find himself incapable of understanding it. So please, try to comment your code!</p>
+
+<p>What about division? To divide we use the “/” operator:</p>
+
+<figure class="highlight"><pre><code class="language-rust" data-lang="rust"><span class="k">fn</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">let</span> <span class="n">a</span> <span class="o">=</span> <span class="err">-</span><span class="mi">20</span><span class="p">;</span>
+    <span class="k">let</span> <span class="n">b</span> <span class="o">=</span> <span class="mi">5</span><span class="p">;</span>
+    <span class="nd">println!</span><span class="p">(</span><span class="s">"a/b={}"</span><span class="p">,</span> <span class="n">a</span>/<span class="n">b</span><span class="p">);</span> <span class="c">// Division</span>
+<span class="p">}</span></code></pre></figure>
+
+<p>And the result is:</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">a/b<span class="o">=</span><span class="nt">-4</span></code></pre></figure>
+
+<p>That is good. What about <script type="math/tex">\frac{15}{2}</script>?</p>
+
+<figure class="highlight"><pre><code class="language-rust" data-lang="rust"><span class="k">fn</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">let</span> <span class="n">a</span> <span class="o">=</span> <span class="mi">15</span><span class="p">;</span>
+    <span class="k">let</span> <span class="n">b</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>
+    <span class="nd">println!</span><span class="p">(</span><span class="s">"a/b={}"</span><span class="p">,</span> <span class="n">a</span>/<span class="n">b</span><span class="p">);</span> <span class="c">// Division</span>
+<span class="p">}</span></code></pre></figure>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">a/b<span class="o">=</span>7</code></pre></figure>
+
+<p>Wait, what? It should be 7.5 but the computer gave 7, why? The answer is simple. When we are using the operators +, -, * or / on two integers, the result will be an integer. However, <script type="math/tex">\frac{15}{2}</script> is not an integer, it is a rational number, so the computer cannot give us the correct answer. Instead, it gives us the <em>quotient</em> of the <a href="https://en.wikipedia.org/wiki/Euclidean_division">euclidian division</a>. In our case, we can write <script type="math/tex">\frac{15}{2}</script> as 15=2*7+1. 7 is the quotient and 1 is the <em>remainder</em> of the euclidian division.</p>
+
+<p>If we want to get the remainder we can use the symbol “%”:</p>
+
+<figure class="highlight"><pre><code class="language-rust" data-lang="rust"><span class="k">fn</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">let</span> <span class="n">a</span> <span class="o">=</span> <span class="mi">15</span><span class="p">;</span>
+    <span class="k">let</span> <span class="n">b</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>
+    <span class="nd">println!</span><span class="p">(</span><span class="s">"a</span><span class="si">%b</span><span class="s">={}"</span><span class="p">,</span> <span class="n">a</span><span class="o">%</span><span class="n">b</span><span class="p">);</span> <span class="c">// Remainder of the euclidian division</span>
+<span class="p">}</span></code></pre></figure>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">a%b<span class="o">=</span>1</code></pre></figure>
+
+<p>It seems difficult to use the division with integers because we may result with rational numbers. One way to avoid this is to use <strong>floating-point numbers</strong>.</p>
+
+<h2 id="floating-point-numbers">Floating-point numbers</h2>
+
+<p>Using integers to make computation is really easy for a computer. However, when we begin to want to use rational numbers or real numbers everything becomes more complicated. How would we represent a real number with a non predictible decimal part such as <script type="math/tex">\pi</script> in a computer? Or even a rational number with an infinite decimal part such as $\frac{1}{3}=0.33333333..$? Besides, many problems arise when doing operations. Therefore, scientists all over the world discussed about it and in 1985 a standard was created: the <a href="https://en.wikipedia.org/wiki/IEEE_754">IEEE 754 for Floating-Point Arithmetic (IEEE754)</a>. It gave a unified vision on how should computers handle decimal numbers.</p>
+
+<p>Rust gives two types for floating-point numbers: <em>f32</em> and <em>f64</em>. The numbers in the type names once again mean the number of bits to represent the decimal value. However, as with integers, the compiler is able to infer that we want to use a float (floating-point) type just by reading our code:</p>
+
+<figure class="highlight"><pre><code class="language-rust" data-lang="rust"><span class="k">fn</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">let</span> <span class="n">a</span> <span class="o">=</span> <span class="mf">12.6</span><span class="p">;</span>
+    <span class="k">let</span> <span class="n">a</span> <span class="o">=</span> <span class="p">();</span> <span class="c">// creates a type error</span>
+<span class="p">}</span></code></pre></figure>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">error[E0308]: mismatched types 
+ <span class="nt">--</span><span class="o">&gt;</span> src/main.rs:3:9                                                                            
+  |                                                                                             
+3 |     a <span class="o">=</span> <span class="o">()</span><span class="p">;</span>                                                                                 
+  |         ^^ expected integral variable, found <span class="o">()</span>                                             
+  |                                                                                             
+  <span class="o">=</span> note: expected <span class="nb">type</span> <span class="sb">`</span><span class="o">{</span>float<span class="o">}</span><span class="sb">`</span>    
+             found <span class="nb">type</span> <span class="sb">`</span><span class="o">()</span><span class="sb">`</span>                
+                            
+error: aborting due to previous error  
+                                          
+For more information about this error, try <span class="sb">`</span>rustc <span class="nt">--explain</span> E0308<span class="sb">`</span><span class="nb">.</span>
+error: Could not compile <span class="sb">`</span>my_project<span class="sb">`</span><span class="nb">.</span>  
+
+To learn more, run the <span class="nb">command </span>again with <span class="nt">--verbose</span>.</code></pre></figure>
+
+<p>If we do not precise it the compiler will choose <em>f64</em> by default because on modern CPUs it will be almost as fast as <em>f32</em> but with more precision (more bits). And, again, if we want to force the usage of a particular type we can use type annotation:</p>
+
+<figure class="highlight"><pre><code class="language-rust" data-lang="rust"><span class="k">fn</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">let</span> <span class="n">a</span><span class="p">:</span> <span class="nb">f32</span> <span class="o">=</span> <span class="mf">12.6</span><span class="p">;</span>
+    <span class="k">let</span> <span class="n">a</span> <span class="o">=</span> <span class="p">();</span> <span class="c">// creates a type error</span>
+<span class="p">}</span></code></pre></figure>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">error[E0308]: mismatched types 
+ <span class="nt">--</span><span class="o">&gt;</span> src/main.rs:3:9                                                                            
+  |                                                                                             
+3 |     a <span class="o">=</span> <span class="o">()</span><span class="p">;</span>                                                                                 
+  |         ^^ expected integral variable, found <span class="o">()</span>                                             
+  |                                                                                             
+  <span class="o">=</span> note: expected <span class="nb">type</span> <span class="sb">`</span>f32<span class="sb">`</span>    
+             found <span class="nb">type</span> <span class="sb">`</span><span class="o">()</span><span class="sb">`</span>                
+                            
+error: aborting due to previous error  
+                                          
+For more information about this error, try <span class="sb">`</span>rustc <span class="nt">--explain</span> E0308<span class="sb">`</span><span class="nb">.</span>
+error: Could not compile <span class="sb">`</span>my_project<span class="sb">`</span><span class="nb">.</span>  
+
+To learn more, run the <span class="nb">command </span>again with <span class="nt">--verbose</span>.</code></pre></figure>
+
+<h2 id="manipulating-floats">Manipulating floats</h2>
+
+<p>Floats and integers share the same operators:</p>
+
+<figure class="highlight"><pre><code class="language-rust" data-lang="rust"><span class="k">fn</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">let</span> <span class="n">a</span> <span class="o">=</span> <span class="mf">15.0</span><span class="p">;</span>
+    <span class="k">let</span> <span class="n">b</span> <span class="o">=</span> <span class="mf">2.0</span><span class="p">;</span>
+    <span class="nd">println!</span><span class="p">(</span><span class="s">"a+b={}"</span><span class="p">,</span> <span class="n">a</span><span class="o">+</span><span class="n">b</span><span class="p">);</span> <span class="c">// Addition</span>
+    <span class="nd">println!</span><span class="p">(</span><span class="s">"a-b={}"</span><span class="p">,</span> <span class="n">a</span>-<span class="n">b</span><span class="p">);</span> <span class="c">// Substraction</span>
+    <span class="nd">println!</span><span class="p">(</span><span class="s">"a*b={}"</span><span class="p">,</span> <span class="n">a</span><span class="o">*</span><span class="n">b</span><span class="p">);</span> <span class="c">// Multiplication</span>
+    <span class="nd">println!</span><span class="p">(</span><span class="s">"a/b={}"</span><span class="p">,</span> <span class="n">a</span>/<span class="n">b</span><span class="p">);</span> <span class="c">// Division</span>
+<span class="p">}</span></code></pre></figure>
+
+<p>But this time the division gives the expected result:</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">a+b<span class="o">=</span>17
+a-b<span class="o">=</span>13
+a<span class="k">*</span><span class="nv">b</span><span class="o">=</span>30
+a/b<span class="o">=</span>7.5</code></pre></figure>
+
+<p>Note that in the code we did not tell the compiler that <em>a</em> and <em>b</em> were floats, yet it infered it was the case because we wrote 15.0 and 2.0. If we just write 15 and 2 the compiler will infer that they are integers.</p>
+
+<p>We can also use the “%” operator (named <strong>modulo</strong>) to get the remainder of the euclidian division:</p>
+
+<figure class="highlight"><pre><code class="language-rust" data-lang="rust"><span class="k">fn</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">let</span> <span class="n">a</span> <span class="o">=</span> <span class="mf">3.5</span><span class="p">;</span>
+    <span class="k">let</span> <span class="n">b</span> <span class="o">=</span> <span class="mf">2.0</span><span class="p">;</span>
+    <span class="nd">println!</span><span class="p">(</span><span class="s">"a</span><span class="si">%b</span><span class="s">={}"</span><span class="p">,</span> <span class="n">a</span><span class="o">%</span><span class="n">b</span><span class="p">);</span> <span class="c">// Remainder</span>
+<span class="p">}</span></code></pre></figure>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">a%b<span class="o">=</span>1.5</code></pre></figure>
+
+<p>What about mixing integers and floats?</p>
+
+<figure class="highlight"><pre><code class="language-rust" data-lang="rust"><span class="k">fn</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">let</span> <span class="n">a</span><span class="p">:</span> <span class="nb">f32</span> <span class="o">=</span> <span class="mf">3.5</span><span class="p">;</span>
+    <span class="k">let</span> <span class="n">b</span><span class="p">:</span> <span class="nb">i32</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>
+    <span class="nd">println!</span><span class="p">(</span><span class="s">"a+b={}"</span><span class="p">,</span> <span class="n">a</span><span class="o">+</span><span class="n">b</span><span class="p">);</span> <span class="c">// Will it work?</span>
+<span class="p">}</span></code></pre></figure>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">error[E0277]: cannot add <span class="sb">`</span>i32<span class="sb">`</span> to <span class="sb">`</span>f32<span class="sb">`</span>
+ <span class="nt">--</span><span class="o">&gt;</span> src/main.rs:4:25
+  |
+4 |     println!<span class="o">(</span><span class="s2">"a+b={}"</span>, a+b<span class="o">)</span><span class="p">;</span> // Will it work?
+  |                         ^ no implementation <span class="k">for</span> <span class="sb">`</span>f32 + i32<span class="sb">`</span>
+  |
+  <span class="o">=</span> <span class="nb">help</span>: the trait <span class="sb">`</span>std::ops::Add&lt;i32&gt;<span class="sb">`</span> is not implemented <span class="k">for</span> <span class="sb">`</span>f32<span class="sb">`</span>
+
+error: aborting due to previous error
+
+For more information about this error, try <span class="sb">`</span>rustc <span class="nt">--explain</span> E0277<span class="sb">`</span><span class="nb">.</span>
+error: Could not compile <span class="sb">`</span>my_project<span class="sb">`</span><span class="nb">.</span>
+
+To learn more, run the <span class="nb">command </span>again with <span class="nt">--verbose</span>.</code></pre></figure>
+
+<p>The error is very explicit: we “cannot add <em>i32</em> to <em>f32</em>”. In Rust, we need our numbers to share the same type if we want to use an operator on them. It is not only an “integers vs floats” problem, we will have the same result if we try to add two integers with different types. Try it!</p>
+
+<h2 id="exercises">Exercises</h2>
+
+<p>From this post I will give some exercices at the end of each post. Programming is a skill that cannot be acquired only by reading, instead it requires you to actively think on how to solve some problems. It also require some curiosity, I highly encourage you to try anything you want to understand the limits of what you can do and what you cannot.</p>
+
+<p>Here are some exercises about variables and types:</p>
+
+<p>1) Try to add an integer and a float. What happens?</p>
+
+<p>2) Can we create a variable <em>c</em> from the result of <em>a</em> and <em>b</em>?</p>
+
+<p>3) The type <em>u8</em> can only contain integers from 0 to 255. What happens if we try to bound the value 256 to an <em>u8</em> variable? What if <em>a</em> is an <em>u8</em> binding the value 1 and <em>b</em> is an <em>u8</em> binding the value 255, what happens if you try to add <em>a</em> and <em>b</em>?</p>
+
+<h2 id="conclusion">Conclusion</h2>
+
+<p>In this post we discovered how to do some computations on numbers. More precisely, we learned about variables and their types. This post contained a lot of theory but it was important to understand how to program. In the next post we will see a new type representing something else than numbers: <em>booleans</em>. Until now, our program was following all the instructions one by one. We will see how to have instructions that depend on some conditions.</p>
+
+  </div><a class="u-url" href="/2018/12/29/rust-for-total-beginners-3.html" hidden></a>
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">Miso and Raclette programming</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">Miso and Raclette programming</li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://github.com/misoraclette"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg> <span class="username">misoraclette</span></a></li></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>This blog is mostly about scientific programming. My goal is to write about anything I think is useful but may not have yet a clear documentation.</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>
