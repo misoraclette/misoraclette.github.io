@@ -1,0 +1,612 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.5.0 -->
+<title>Rust for total beginners: a task reminder | Miso and Raclette programming</title>
+<meta name="generator" content="Jekyll v3.8.5" />
+<meta property="og:title" content="Rust for total beginners: a task reminder" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="Introduction" />
+<meta property="og:description" content="Introduction" />
+<link rel="canonical" href="https://github.com/misoraclette/misoraclette.github.io/2018/12/31/rust-for-total-beginners-4.html" />
+<meta property="og:url" content="https://github.com/misoraclette/misoraclette.github.io/2018/12/31/rust-for-total-beginners-4.html" />
+<meta property="og:site_name" content="Miso and Raclette programming" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2018-12-31T00:00:00+09:00" />
+<script type="application/ld+json">
+{"description":"Introduction","@type":"BlogPosting","url":"https://github.com/misoraclette/misoraclette.github.io/2018/12/31/rust-for-total-beginners-4.html","headline":"Rust for total beginners: a task reminder","dateModified":"2018-12-31T00:00:00+09:00","datePublished":"2018-12-31T00:00:00+09:00","mainEntityOfPage":{"@type":"WebPage","@id":"https://github.com/misoraclette/misoraclette.github.io/2018/12/31/rust-for-total-beginners-4.html"},"@context":"http://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/assets/main.css"><link type="application/atom+xml" rel="alternate" href="https://github.com/misoraclette/misoraclette.github.io/feed.xml" title="Miso and Raclette programming" /></head>
+<body>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+  tex2jax: {
+  inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+  processEscapes: true
+  }
+  });
+</script>
+
+<script type="text/javascript" async
+	src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML">
+  </script>
+
+
+
+<header class="site-header" role="banner">
+  <div class="wrapper">
+    
+    
+    <a class="site-title" rel="author" href="/">Miso and Raclette programming</a>
+
+    
+    <nav class="site-nav">
+      <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+      <label for="nav-trigger">
+	<span class="menu-icon">
+	  <svg viewBox="0 0 18 15" width="18px" height="15px">
+	    <path fill="#424242" d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.031C17.335,0,18,0.665,18,1.484L18,1.484z"/>
+	    <path fill="#424242" d="M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0c0-0.82,0.665-1.484,1.484-1.484 h15.031C17.335,6.031,18,6.696,18,7.516L18,7.516z"/>
+	    <path fill="#424242" d="M18,13.516C18,14.335,17.335,15,16.516,15H1.484C0.665,15,0,14.335,0,13.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.031C17.335,12.031,18,12.696,18,13.516L18,13.516z"/>
+	  </svg>
+	</span>
+      </label>
+
+      <div class="trigger">
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+      </div>
+    </nav>
+    
+  </div>
+  </header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">Rust for total beginners: a task reminder</h1>
+    <p class="post-meta">
+      <time class="dt-published" datetime="2018-12-31T00:00:00+09:00" itemprop="datePublished">Dec 31, 2018
+      </time></p>
+  </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <h2 id="introduction">Introduction</h2>
+
+<p>In our <a href="/2018/12/29/rust-for-total-beginners-3.html">previous post</a> we discovered variables and number types. Today we will see a new type that will allow us to program <em>conditions</em>. A simple application will be to create a task reminder.</p>
+
+<h2 id="booleans">Booleans</h2>
+
+<p>Until now, our variables were representing numbers. Another interesting kind of variables are <strong>booleans</strong>. A boolean is a variable with only two possible values: <em>true</em> or <em>false</em>. This is useful when you want to make some conditions in your program like “If this condition is true then…”. Creating a boolean is easy, we can either initialize the variable with <em>true</em> or <em>false</em> and the compiler will infer the type by itself or we can use type annotation by using the <code class="highlighter-rouge">bool</code> type.</p>
+
+<figure class="highlight"><pre><code class="language-rust" data-lang="rust"><span class="k">fn</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">let</span> <span class="n">a</span> <span class="o">=</span> <span class="k">true</span><span class="p">;</span>
+    <span class="k">let</span> <span class="n">b</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="k">false</span><span class="p">;</span>
+<span class="p">}</span></code></pre></figure>
+
+<p>A boolean weights one <strong>byte</strong> of memory, which is equivalent to 8 bits. Could we print a boolean with <em>println</em>?</p>
+
+<figure class="highlight"><pre><code class="language-rust" data-lang="rust"><span class="k">fn</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">let</span> <span class="n">a</span> <span class="o">=</span> <span class="k">true</span><span class="p">;</span>
+    <span class="k">let</span> <span class="n">b</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="k">false</span><span class="p">;</span>
+    <span class="nd">println!</span><span class="p">(</span><span class="s">"Eating an apple is healthy: {}"</span><span class="p">,</span> <span class="n">a</span><span class="p">);</span>
+    <span class="nd">println!</span><span class="p">(</span><span class="s">"The sky is red: {}"</span><span class="p">,</span> <span class="n">b</span><span class="p">);</span>
+<span class="p">}</span></code></pre></figure>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">Eating an apple is healthy: <span class="nb">true
+</span>The sky is red: <span class="nb">false</span></code></pre></figure>
+
+<p>We can! Alright, how can we use this new kind of variable?</p>
+
+<h2 id="the-if-expression">The <em>if</em> expression</h2>
+
+<p>One fundamental part of programming is to make the program behave differently if some conditions are met or not. Think about when we are logging in a website. When we write our password and then click to log there are two possibilities: either we are a legitimate user who registered before (the username and password are correct) or not. Depending on these possibilities, the website will either ask us again our credentials or will continue on another page for the registered users.</p>
+
+<p>In Rust, we can do this by using the <strong>if</strong> keyword.</p>
+
+<figure class="highlight"><pre><code class="language-rust" data-lang="rust"><span class="k">fn</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">let</span> <span class="n">condition</span> <span class="o">=</span> <span class="k">true</span><span class="p">;</span>
+    <span class="k">if</span> <span class="n">condition</span> <span class="p">{</span>
+        <span class="nd">println!</span><span class="p">(</span><span class="s">"The condition is true"</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span></code></pre></figure>
+
+<p>The condition (which is a boolean) is placed just after the <em>if</em> and the instructions to execute if the condition is met (condition is true) are placed inside the curly braces. We can create many conditions by using numbers. For example, we can test the equality condition by using the “==” operator.</p>
+
+<figure class="highlight"><pre><code class="language-rust" data-lang="rust"><span class="k">fn</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">let</span> <span class="n">number</span> <span class="o">=</span> <span class="mi">5</span><span class="p">;</span>
+    <span class="k">if</span> <span class="n">number</span> <span class="o">==</span> <span class="mi">3</span> <span class="p">{</span>
+        <span class="nd">println!</span><span class="p">(</span><span class="s">"The number is equal to 3"</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span></code></pre></figure>
+
+<p>The “number == 3” expression is in fact a boolean. You can test it by checking its type:</p>
+
+<figure class="highlight"><pre><code class="language-rust" data-lang="rust"><span class="k">fn</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">let</span> <span class="n">number</span> <span class="o">=</span> <span class="mi">5</span><span class="p">;</span>
+    <span class="k">let</span> <span class="n">variable</span> <span class="o">=</span> <span class="n">number</span> <span class="o">==</span> <span class="mi">3</span><span class="p">;</span>
+    <span class="n">variable</span> <span class="o">=</span> <span class="p">();</span>
+<span class="p">}</span></code></pre></figure>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">error[E0308]: mismatched types
+ <span class="nt">--</span><span class="o">&gt;</span> src/main.rs:4:16
+  |
+4 |     variable <span class="o">=</span> <span class="o">()</span><span class="p">;</span>
+  |                ^^ expected bool, found <span class="o">()</span>
+  |
+  <span class="o">=</span> note: expected <span class="nb">type</span> <span class="sb">`</span>bool<span class="sb">`</span>
+              found <span class="nb">type</span> <span class="sb">`</span><span class="o">()</span><span class="sb">`</span>
+
+error: aborting due to previous error
+
+For more information about this error, try <span class="sb">`</span>rustc <span class="nt">--explain</span> E0308<span class="sb">`</span>.</code></pre></figure>
+
+<p>We can also test if the number is different from another one with the “!=” operator.</p>
+
+<figure class="highlight"><pre><code class="language-rust" data-lang="rust"><span class="k">fn</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">let</span> <span class="n">number</span> <span class="o">=</span> <span class="mi">5</span><span class="p">;</span>
+    <span class="k">if</span> <span class="n">number</span> <span class="o">==</span> <span class="mi">3</span> <span class="p">{</span>
+        <span class="nd">println!</span><span class="p">(</span><span class="s">"The number is equal to 3"</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="k">if</span> <span class="n">number</span> <span class="o">!=</span> <span class="mi">3</span> <span class="p">{</span>
+        <span class="nd">println!</span><span class="p">(</span><span class="s">"The number is not equal to 3"</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span></code></pre></figure>
+
+<p>We used integers but floats can also be used. An other possible condition is the inequality condition: if a number is less or greater than another number. For this, we can use the “&lt;” or “&gt;” operators.</p>
+
+<figure class="highlight"><pre><code class="language-rust" data-lang="rust"><span class="k">fn</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">let</span> <span class="n">number</span> <span class="o">=</span> <span class="mf">113.48</span><span class="p">;</span>
+    <span class="k">if</span> <span class="n">number</span> <span class="o">&gt;</span> <span class="mf">42.0</span> <span class="p">{</span>
+        <span class="nd">println!</span><span class="p">(</span><span class="s">"This number is really big!"</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="k">if</span> <span class="n">number</span> <span class="o">&lt;</span> <span class="mf">42.0</span> <span class="p">{</span>
+        <span class="nd">println!</span><span class="p">(</span><span class="s">"This is a small number!"</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span></code></pre></figure>
+
+<p>We should note that when doing comparisons between numbers we should be careful that both numbers have the same type. We cannot compare an integer with a float.</p>
+
+<p>In our last example, we cover all the number less than 42 and greater than 42 but what about if our number was 42 exactly? We can have inequality conditions checking for equality with the operators “&gt;=” and “&lt;=”.</p>
+
+<figure class="highlight"><pre><code class="language-rust" data-lang="rust"><span class="k">fn</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">let</span> <span class="n">number</span> <span class="o">=</span> <span class="mf">42.0</span><span class="p">;</span>
+    <span class="k">if</span> <span class="n">number</span> <span class="o">&gt;</span> <span class="mf">42.0</span> <span class="p">{</span>
+        <span class="nd">println!</span><span class="p">(</span><span class="s">"This number is really big!"</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="k">if</span> <span class="n">number</span> <span class="o">&lt;=</span> <span class="mf">42.0</span> <span class="p">{</span>
+        <span class="nd">println!</span><span class="p">(</span><span class="s">"This is a small number!"</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span></code></pre></figure>
+
+<p>However, what happens if we put both “&lt;=” and “&gt;=”?</p>
+
+<figure class="highlight"><pre><code class="language-rust" data-lang="rust"><span class="k">fn</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">let</span> <span class="n">number</span> <span class="o">=</span> <span class="mf">42.0</span><span class="p">;</span>
+    <span class="k">if</span> <span class="n">number</span> <span class="o">&gt;=</span> <span class="mf">42.0</span> <span class="p">{</span>
+        <span class="nd">println!</span><span class="p">(</span><span class="s">"This number is really big!"</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="k">if</span> <span class="n">number</span> <span class="o">&lt;=</span> <span class="mf">42.0</span> <span class="p">{</span>
+        <span class="nd">println!</span><span class="p">(</span><span class="s">"This is a small number!"</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span></code></pre></figure>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">This number is really big!
+This is a small number!</code></pre></figure>
+
+<p>We got both answers! Actually, this is logical. The first condition is tested and equal to <em>true</em> because the number is 42, therefore “This number is really big!” is printed. Then, the next instruction is the second <em>if</em> expression, which is also verified! In most case, this will not be what we want to do. Usually, we want to check if a condition is verified or <em>else</em> do something else. Rust allows us to do it by using the <strong>else</strong> keyword.</p>
+
+<figure class="highlight"><pre><code class="language-rust" data-lang="rust"><span class="k">fn</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">let</span> <span class="n">number</span> <span class="o">=</span> <span class="mf">42.0</span><span class="p">;</span>
+    <span class="k">if</span> <span class="n">number</span> <span class="o">&gt;=</span> <span class="mf">42.0</span> <span class="p">{</span>
+        <span class="nd">println!</span><span class="p">(</span><span class="s">"This number is really big!"</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="k">else</span> <span class="p">{</span>
+        <span class="nd">println!</span><span class="p">(</span><span class="s">"This is a small number!"</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span></code></pre></figure>
+
+<p>When you are using the <strong>else</strong> keyword you are creating an <em>exclusive</em> choice. It is either the instructions inside the <em>if</em> expression or the ones in the <em>else</em> expression but never both. But what if we want a little bit more choices? For example, in our code we just have the choice between being a big number or a small number. What about when it is exactly 42? Shouldn’t it be perfectly sized (it is the <a href="https://en.wikipedia.org/wiki/Phrases_from_The_Hitchhiker%27s_Guide_to_the_Galaxy#Answer_to_the_Ultimate_Question_of_Life,_the_Universe,_and_Everything_(42)">answer for the ultimate question of Life, the Universe and Everything</a> after all!) ? In this situation, Rust allows multiple choices with the <strong>else if</strong> keyword.</p>
+
+<figure class="highlight"><pre><code class="language-rust" data-lang="rust"><span class="k">fn</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">let</span> <span class="n">number</span> <span class="o">=</span> <span class="mf">42.0</span><span class="p">;</span>
+    <span class="k">if</span> <span class="n">number</span> <span class="o">&gt;</span> <span class="mf">42.0</span> <span class="p">{</span>
+        <span class="nd">println!</span><span class="p">(</span><span class="s">"This number is really big!"</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="k">else</span> <span class="k">if</span> <span class="n">number</span> <span class="o">==</span> <span class="mf">42.0</span> <span class="p">{</span>
+        <span class="nd">println!</span><span class="p">(</span><span class="s">"This is a perfectly sized number!"</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="k">else</span> <span class="p">{</span>
+        <span class="nd">println!</span><span class="p">(</span><span class="s">"This is a small number!"</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span></code></pre></figure>
+
+<p>An <em>else if</em> expression will work exactly like an <em>if expression</em> except that if the <em>if</em> expression is entered (the condition has been met) then the following <em>else if</em> expression will not be evaluated. It is still an exclusive choice.</p>
+
+<p>Here is a table summarizing the different operator we have seen.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Operator</th>
+      <th>Meaning</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>==</td>
+      <td>is equal to</td>
+    </tr>
+    <tr>
+      <td>!=</td>
+      <td>is different than</td>
+    </tr>
+    <tr>
+      <td>&lt;</td>
+      <td>is strictly less than</td>
+    </tr>
+    <tr>
+      <td>&lt;=</td>
+      <td>is less or equal to</td>
+    </tr>
+    <tr>
+      <td>&gt;</td>
+      <td>is strictly greater than</td>
+    </tr>
+    <tr>
+      <td>&gt;=</td>
+      <td>is greater or equal to</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="a-task-reminder">A task reminder</h2>
+
+<p>Let us do a simple program to show how we could use what we just learned. Imagine that you are working on your computer and you want a reminder to tell you to be ready in <script type="math/tex">10s</script> to do a task. Every <script type="math/tex">2s</script> you want a message on your computer until the task should be done. However, depending on if the task is urgent or not you would like to have different messages. Of course, when it is urgent the messages have to be more ardent!</p>
+
+<p>So, how could we code this? First we need to analyse our problem. We want a program that should execute some instructions depending on one condition, the urgency of the task. The task is either urgent or not, so the logic of the program will be represented by an <em>if</em>/<em>else</em> expression. Besides, to represent the urgency value we can use a boolean. Therefore a skeleton of program would be the following.</p>
+
+<figure class="highlight"><pre><code class="language-rust" data-lang="rust"><span class="k">fn</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">let</span> <span class="n">urgent</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="k">true</span><span class="p">;</span> <span class="c">// Boolean variable to know if the task is urgent </span>
+    <span class="k">if</span> <span class="n">urgent</span> <span class="p">{</span>
+        
+    <span class="p">}</span>
+    <span class="k">else</span> <span class="p">{</span>
+        
+    <span class="p">}</span>
+<span class="p">}</span></code></pre></figure>
+
+<p>Good! Now, what’s next? When the task is urgent, the program should print some text every <script type="math/tex">2s</script> until <script type="math/tex">10s</script> have been passed. It means that we need a way to measure time. It is possible but this is not something done by using the Rust language directly, instead we will use the computer operating system.</p>
+
+<p>The operating system of the computer does many many thing, one of it is to track time. What we want to do is to tell our program to wait <script type="math/tex">2s</script> and then continue.</p>
+
+<figure class="highlight"><pre><code class="language-rust" data-lang="rust"><span class="k">fn</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">let</span> <span class="n">urgent</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="k">true</span><span class="p">;</span> <span class="c">// Boolean variable to know if the task is urgent </span>
+    <span class="k">if</span> <span class="n">urgent</span> <span class="p">{</span>
+        <span class="nd">println!</span><span class="p">(</span><span class="s">"You have an urgent task in 10s."</span><span class="p">);</span>
+	<span class="c">// wait for 2s</span>
+        <span class="nd">println!</span><span class="p">(</span><span class="s">"Be ready, it will soon happen!"</span><span class="p">);</span>
+	<span class="c">// wait for 2s</span>
+        <span class="nd">println!</span><span class="p">(</span><span class="s">"Finish everything else, the task is more important!!"</span><span class="p">);</span>
+	<span class="c">// wait for 2s</span>
+        <span class="nd">println!</span><span class="p">(</span><span class="s">"It is URGENT!!!"</span><span class="p">);</span>
+	<span class="c">// wait for 2s</span>
+        <span class="nd">println!</span><span class="p">(</span><span class="s">"IT IS HAPPENING!!!!"</span><span class="p">);</span>
+	<span class="c">// wait for 2s</span>
+        <span class="nd">println!</span><span class="p">(</span><span class="s">"DO IT!!!!!"</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="k">else</span> <span class="p">{</span>
+        
+    <span class="p">}</span>
+<span class="p">}</span></code></pre></figure>
+
+<p>So how can we make the program wait? Many problems in programming are fairly commons like how to ask the operating system to make our program to wait. Instead of recreating by ourselves a solution (even if it is possible) we can just use the <strong>standard library</strong>. A library in programming is like a collection of functions and data structures that you can use for your own project. The standard library is the library made by the Rust developers.</p>
+
+<p>What we want for our program is the <a href="https://doc.rust-lang.org/std/thread/fn.sleep.html"><em>sleep</em></a> function. The description of the function is:</p>
+
+<blockquote>
+  <p>Puts the current thread to sleep for at least the specified amount of time.</p>
+</blockquote>
+
+<p>But what is a <strong>function</strong>? Until now, we have only seen the <em>main</em> function where we are working everytime. We will see functions more extensively in a later post but for now you can think of it as a black box: you put an input and the function gives an output. In this case, the <em>sleep</em> function takes an input (named the <strong>argument</strong>) representing the time we want to wait, and the output of the function is to make our program “sleep” (doing nothing). If it is still unclear, fear not, we will explain in far more details later!</p>
+
+<p>In the <a href="https://doc.rust-lang.org/std/thread/fn.sleep.html">documentation</a> of the sleep function you can see in the upper part</p>
+
+<figure class="highlight"><pre><code class="language-rust" data-lang="rust"><span class="k">pub</span> <span class="k">fn</span> <span class="nf">sleep</span><span class="p">(</span><span class="n">dur</span><span class="p">:</span> <span class="n">Duration</span><span class="p">)</span></code></pre></figure>
+
+<p>The <strong>pub</strong> keyword means that this is a <strong>public</strong> function, you have access to it and can use it. The <strong>fn</strong> keyword means that this is a function. Then we can seen inside the round brackets
+that there is an argument (a variable) named <em>dur</em> of type <code class="highlighter-rouge">Duration</code>. Until now, we have only see number types and boolean type. However, there are many many more! Here the <code class="highlighter-rouge">Duration</code> type will be used for variable representing…durations. We want to wait for <script type="math/tex">2s</script> so we should create a <code class="highlighter-rouge">Duration</code> of <script type="math/tex">2</script> right?</p>
+
+<figure class="highlight"><pre><code class="language-rust" data-lang="rust"><span class="k">fn</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">let</span> <span class="n">urgent</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="k">true</span><span class="p">;</span> <span class="c">// Boolean variable to know if the task is urgent</span>
+    <span class="k">let</span> <span class="n">waiting_time</span><span class="p">:</span> <span class="n">Duration</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>
+    <span class="k">if</span> <span class="n">urgent</span> <span class="p">{</span>
+        <span class="nd">println!</span><span class="p">(</span><span class="s">"You have an urgent task in 10s."</span><span class="p">);</span>
+	<span class="c">// wait for 2s</span>
+        <span class="nd">println!</span><span class="p">(</span><span class="s">"Be ready, it will soon happen!"</span><span class="p">);</span>
+	<span class="c">// wait for 2s</span>
+        <span class="nd">println!</span><span class="p">(</span><span class="s">"Finish everything else, the task is more important!!"</span><span class="p">);</span>
+	<span class="c">// wait for 2s</span>
+        <span class="nd">println!</span><span class="p">(</span><span class="s">"It is URGENT!!!"</span><span class="p">);</span>
+	<span class="c">// wait for 2s</span>
+        <span class="nd">println!</span><span class="p">(</span><span class="s">"IT IS HAPPENING!!!!"</span><span class="p">);</span>
+	<span class="c">// wait for 2s</span>
+        <span class="nd">println!</span><span class="p">(</span><span class="s">"DO IT!!!!!"</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="k">else</span> <span class="p">{</span>
+        
+    <span class="p">}</span>
+<span class="p">}</span></code></pre></figure>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">error[E0412]: cannot find <span class="nb">type</span> <span class="sb">`</span>Duration<span class="sb">`</span> <span class="k">in </span>this scope
+ <span class="nt">--</span><span class="o">&gt;</span> src/main.rs:3:23
+  |
+3 |     <span class="nb">let </span>waiting_time: Duration <span class="o">=</span> 2<span class="p">;</span>
+  |                       ^^^^^^^^ not found <span class="k">in </span>this scope
+<span class="nb">help</span>: possible candidates are found <span class="k">in </span>other modules, you can import them into scope
+  |
+1 | use core::time::Duration<span class="p">;</span>
+  |
+1 | use std::time::Duration<span class="p">;</span>
+  |
+
+error: aborting due to previous error
+
+For more information about this error, try <span class="sb">`</span>rustc <span class="nt">--explain</span> E0412<span class="sb">`</span>.</code></pre></figure>
+
+<p>It does not work! The reason is clear: “cannot find type <code class="highlighter-rouge">Duration</code> in this scope”. The compiler does not know about the <code class="highlighter-rouge">Duration</code> type. The definition of this type is, in fact, inside the standard library so we should tell the compiler to look there. Note that the compiler already checked for us in the standard library! It gives us a hint by saying that two <code class="highlighter-rouge">Duration</code> types have been found in the standard library (more precisely one in the standard library and one in the core library, but it is not important for now). So which one should we use?</p>
+
+<p>If you click on the <code class="highlighter-rouge">Duration</code> type in the sleep function documentation then you will arrive to <a href="https://doc.rust-lang.org/std/time/struct.Duration.html">this page</a>. The head title is “Struct std::time::Duration” so we know we should use the <code class="highlighter-rouge">std::time::Duration</code> type. The compiler already explained how to do it.</p>
+
+<figure class="highlight"><pre><code class="language-rust" data-lang="rust"><span class="k">use</span> <span class="nn">std</span><span class="p">::</span><span class="nn">time</span><span class="p">::</span><span class="n">Duration</span><span class="p">;</span>
+
+<span class="k">fn</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">let</span> <span class="n">urgent</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="k">true</span><span class="p">;</span> <span class="c">// Boolean variable to know if the task is urgent</span>
+    <span class="k">let</span> <span class="n">waiting_time</span><span class="p">:</span> <span class="n">Duration</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>
+    <span class="k">if</span> <span class="n">urgent</span> <span class="p">{</span>
+        <span class="nd">println!</span><span class="p">(</span><span class="s">"You have an urgent task in 10s."</span><span class="p">);</span>
+	<span class="c">// wait for 2s</span>
+        <span class="nd">println!</span><span class="p">(</span><span class="s">"Be ready, it will soon happen!"</span><span class="p">);</span>
+	<span class="c">// wait for 2s</span>
+        <span class="nd">println!</span><span class="p">(</span><span class="s">"Finish everything else, the task is more important!!"</span><span class="p">);</span>
+	<span class="c">// wait for 2s</span>
+        <span class="nd">println!</span><span class="p">(</span><span class="s">"It is URGENT!!!"</span><span class="p">);</span>
+	<span class="c">// wait for 2s</span>
+        <span class="nd">println!</span><span class="p">(</span><span class="s">"IT IS HAPPENING!!!!"</span><span class="p">);</span>
+	<span class="c">// wait for 2s</span>
+        <span class="nd">println!</span><span class="p">(</span><span class="s">"DO IT!!!!!"</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="k">else</span> <span class="p">{</span>
+        
+    <span class="p">}</span>
+<span class="p">}</span></code></pre></figure>
+
+<p>We used a new keyword <strong>use</strong> which means that we want to use something from a library, here the <code class="highlighter-rouge">Duration</code> type from the standard library. We will learn more about libraries and how to use them later but for now we need to remember that if we want to use types or functions define in a library we need to use the <strong>use</strong> keyword.</p>
+
+<p>So, is it compiling?</p>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">error[E0308]: mismatched types
+ <span class="nt">--</span><span class="o">&gt;</span> src/main.rs:7:34
+  |
+7 |     <span class="nb">let </span>waiting_time: Duration <span class="o">=</span> 2<span class="p">;</span>
+  |                                  ^ expected struct <span class="sb">`</span>std::time::Duration<span class="sb">`</span>, found integral variable
+  |
+  <span class="o">=</span> note: expected <span class="nb">type</span> <span class="sb">`</span>std::time::Duration<span class="sb">`</span>
+	              found <span class="nb">type</span> <span class="sb">`</span><span class="o">{</span>integer<span class="o">}</span><span class="sb">`</span>
+
+error: aborting due to previous error
+
+For more information about this error, try <span class="sb">`</span>rustc <span class="nt">--explain</span> E0308<span class="sb">`</span>.</code></pre></figure>
+
+<p>It is not, but this time the error changed. The compiler now knows what is the <code class="highlighter-rouge">Duration</code> type and is telling us that we tried to bound the value <script type="math/tex">2</script> of type <code class="highlighter-rouge">integer</code> to the variable <em>waiting_time</em> of type <code class="highlighter-rouge">Duration</code> which is a mistake. How can we do it? In doubt, always look in the <a href="https://doc.rust-lang.org/std/time/struct.Duration.html">documentation</a>!</p>
+
+<blockquote>
+  <p>Each Duration is composed of a whole number of seconds and a fractional part represented in nanoseconds.</p>
+</blockquote>
+
+<p>With an example just after:</p>
+
+<figure class="highlight"><pre><code class="language-rust" data-lang="rust"><span class="k">use</span> <span class="nn">std</span><span class="p">::</span><span class="nn">time</span><span class="p">::</span><span class="n">Duration</span><span class="p">;</span>
+
+<span class="k">let</span> <span class="n">five_seconds</span> <span class="o">=</span> <span class="nn">Duration</span><span class="p">::</span><span class="nf">new</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+<span class="k">let</span> <span class="n">five_seconds_and_five_nanos</span> <span class="o">=</span> <span class="n">five_seconds</span> <span class="o">+</span> <span class="nn">Duration</span><span class="p">::</span><span class="nf">new</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">5</span><span class="p">);</span></code></pre></figure>
+
+<p>In documentations, there usually are no <em>main</em> functions but it is implied. Following the example, we create a duration of <script type="math/tex">2s</script>.</p>
+
+<figure class="highlight"><pre><code class="language-rust" data-lang="rust"><span class="k">use</span> <span class="nn">std</span><span class="p">::</span><span class="nn">time</span><span class="p">::</span><span class="n">Duration</span><span class="p">;</span>
+
+<span class="k">fn</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">let</span> <span class="n">urgent</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="k">true</span><span class="p">;</span> <span class="c">// Boolean variable to know if the task is urgent</span>
+    <span class="k">let</span> <span class="n">waiting_time</span><span class="p">:</span> <span class="n">Duration</span> <span class="o">=</span> <span class="nn">Duration</span><span class="p">::</span><span class="nf">new</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+    <span class="k">if</span> <span class="n">urgent</span> <span class="p">{</span>
+        <span class="nd">println!</span><span class="p">(</span><span class="s">"You have an urgent task in 10s."</span><span class="p">);</span>
+	<span class="c">// wait for 2s</span>
+        <span class="nd">println!</span><span class="p">(</span><span class="s">"Be ready, it will soon happen!"</span><span class="p">);</span>
+	<span class="c">// wait for 2s</span>
+        <span class="nd">println!</span><span class="p">(</span><span class="s">"Finish everything else, the task is more important!!"</span><span class="p">);</span>
+	<span class="c">// wait for 2s</span>
+        <span class="nd">println!</span><span class="p">(</span><span class="s">"It is URGENT!!!"</span><span class="p">);</span>
+	<span class="c">// wait for 2s</span>
+        <span class="nd">println!</span><span class="p">(</span><span class="s">"IT IS HAPPENING!!!!"</span><span class="p">);</span>
+	<span class="c">// wait for 2s</span>
+        <span class="nd">println!</span><span class="p">(</span><span class="s">"DO IT!!!!!"</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="k">else</span> <span class="p">{</span>
+        
+    <span class="p">}</span>
+<span class="p">}</span></code></pre></figure>
+
+<p>This time it compiles! But what does <em>Duration::new</em> means? Again, we will see more extensively later the exact meaning of it but basically it is a call of the function <em>new</em> from the type <code class="highlighter-rouge">Duration</code>. The output of this function <em>new</em> is of type <code class="highlighter-rouge">Duration</code> which is exactly what we want.</p>
+
+<p>Okay, we now have our <em>waiting_time</em> variable of type <code class="highlighter-rouge">Duration</code>, how can we use the <em>sleep</em> function? Well, here was the definition of the function:</p>
+
+<figure class="highlight"><pre><code class="language-rust" data-lang="rust"><span class="k">pub</span> <span class="k">fn</span> <span class="nf">sleep</span><span class="p">(</span><span class="n">dur</span><span class="p">:</span> <span class="n">Duration</span><span class="p">)</span></code></pre></figure>
+
+<p>So, we just need to input the duration into the <em>sleep</em> function.</p>
+
+<figure class="highlight"><pre><code class="language-rust" data-lang="rust"><span class="k">use</span> <span class="nn">std</span><span class="p">::</span><span class="nn">time</span><span class="p">::</span><span class="n">Duration</span><span class="p">;</span>
+
+<span class="k">fn</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">let</span> <span class="n">urgent</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="k">true</span><span class="p">;</span> <span class="c">// Boolean variable to know if the task is urgent</span>
+    <span class="k">let</span> <span class="n">waiting_time</span><span class="p">:</span> <span class="n">Duration</span> <span class="o">=</span> <span class="nn">Duration</span><span class="p">::</span><span class="nf">new</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+    <span class="k">if</span> <span class="n">urgent</span> <span class="p">{</span>
+        <span class="nd">println!</span><span class="p">(</span><span class="s">"You have an urgent task in 10s."</span><span class="p">);</span>
+	<span class="nf">sleep</span><span class="p">(</span><span class="n">waiting_time</span><span class="p">);</span>
+        <span class="nd">println!</span><span class="p">(</span><span class="s">"Be ready, it will soon happen!"</span><span class="p">);</span>
+	<span class="nf">sleep</span><span class="p">(</span><span class="n">waiting_time</span><span class="p">);</span>
+        <span class="nd">println!</span><span class="p">(</span><span class="s">"Finish everything else, the task is more important!!"</span><span class="p">);</span>
+	<span class="nf">sleep</span><span class="p">(</span><span class="n">waiting_time</span><span class="p">);</span>
+        <span class="nd">println!</span><span class="p">(</span><span class="s">"It is URGENT!!!"</span><span class="p">);</span>
+	<span class="nf">sleep</span><span class="p">(</span><span class="n">waiting_time</span><span class="p">);</span>
+        <span class="nd">println!</span><span class="p">(</span><span class="s">"IT IS HAPPENING!!!!"</span><span class="p">);</span>
+	<span class="nf">sleep</span><span class="p">(</span><span class="n">waiting_time</span><span class="p">);</span>
+        <span class="nd">println!</span><span class="p">(</span><span class="s">"DO IT!!!!!"</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="k">else</span> <span class="p">{</span>
+        
+    <span class="p">}</span>
+<span class="p">}</span></code></pre></figure>
+
+<figure class="highlight"><pre><code class="language-bash" data-lang="bash">error[E0425]: cannot find <span class="k">function</span> <span class="sb">`</span><span class="nb">sleep</span><span class="sb">`</span> <span class="k">in </span>this scope
+ <span class="nt">--</span><span class="o">&gt;</span> src/main.rs:8:2
+  |
+8 |     <span class="nb">sleep</span><span class="o">(</span>waiting_time<span class="o">)</span><span class="p">;</span>
+  |     ^^^^^ not found <span class="k">in </span>this scope
+<span class="nb">help</span>: possible candidate is found <span class="k">in </span>another module, you can import it into scope
+  |
+1 | use std::thread::sleep<span class="p">;</span>
+  |
+
+
+...
+
+
+error: aborting due to 5 previous errors
+
+For more information about this error, try <span class="sb">`</span>rustc <span class="nt">--explain</span> E0425<span class="sb">`</span>.</code></pre></figure>
+
+<p>And…it does not compile. This time we have 5 errors, 1 each time the <em>sleep</em> function is called. The compiler is telling us that it does not know about this function but it knows that the function exists in the standard library. We need to tell the compiler about where is this function exactly by using the <strong>use</strong> keyword again.</p>
+
+<figure class="highlight"><pre><code class="language-rust" data-lang="rust"><span class="k">use</span> <span class="nn">std</span><span class="p">::</span><span class="nn">thread</span><span class="p">::</span><span class="n">sleep</span><span class="p">;</span>
+<span class="k">use</span> <span class="nn">std</span><span class="p">::</span><span class="nn">time</span><span class="p">::</span><span class="n">Duration</span><span class="p">;</span>
+
+<span class="k">fn</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">let</span> <span class="n">urgent</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="k">true</span><span class="p">;</span> <span class="c">// Boolean variable to know if the task is urgent</span>
+    <span class="k">let</span> <span class="n">waiting_time</span><span class="p">:</span> <span class="n">Duration</span> <span class="o">=</span> <span class="nn">Duration</span><span class="p">::</span><span class="nf">new</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+    <span class="k">if</span> <span class="n">urgent</span> <span class="p">{</span>
+        <span class="nd">println!</span><span class="p">(</span><span class="s">"You have an urgent task in 10s."</span><span class="p">);</span>
+	<span class="nf">sleep</span><span class="p">(</span><span class="n">waiting_time</span><span class="p">);</span>
+        <span class="nd">println!</span><span class="p">(</span><span class="s">"Be ready, it will soon happen!"</span><span class="p">);</span>
+	<span class="nf">sleep</span><span class="p">(</span><span class="n">waiting_time</span><span class="p">);</span>
+        <span class="nd">println!</span><span class="p">(</span><span class="s">"Finish everything else, the task is more important!!"</span><span class="p">);</span>
+	<span class="nf">sleep</span><span class="p">(</span><span class="n">waiting_time</span><span class="p">);</span>
+        <span class="nd">println!</span><span class="p">(</span><span class="s">"It is URGENT!!!"</span><span class="p">);</span>
+	<span class="nf">sleep</span><span class="p">(</span><span class="n">waiting_time</span><span class="p">);</span>
+        <span class="nd">println!</span><span class="p">(</span><span class="s">"IT IS HAPPENING!!!!"</span><span class="p">);</span>
+	<span class="nf">sleep</span><span class="p">(</span><span class="n">waiting_time</span><span class="p">);</span>
+        <span class="nd">println!</span><span class="p">(</span><span class="s">"DO IT!!!!!"</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="k">else</span> <span class="p">{</span>
+        
+    <span class="p">}</span>
+<span class="p">}</span></code></pre></figure>
+
+<p>And this times it works!! We should now complete the program by writing the instructions inside the <em>else</em> expression.</p>
+
+<figure class="highlight"><pre><code class="language-rust" data-lang="rust"><span class="k">use</span> <span class="nn">std</span><span class="p">::</span><span class="nn">thread</span><span class="p">::</span><span class="n">sleep</span><span class="p">;</span>
+<span class="k">use</span> <span class="nn">std</span><span class="p">::</span><span class="nn">time</span><span class="p">::</span><span class="n">Duration</span><span class="p">;</span>
+
+<span class="k">fn</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="k">let</span> <span class="n">urgent</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="k">false</span><span class="p">;</span> <span class="c">// Boolean variable to know if the task is urgent</span>
+    <span class="k">let</span> <span class="n">waiting_time</span><span class="p">:</span> <span class="n">Duration</span> <span class="o">=</span> <span class="nn">Duration</span><span class="p">::</span><span class="nf">new</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
+    <span class="k">if</span> <span class="n">urgent</span> <span class="p">{</span>
+        <span class="nd">println!</span><span class="p">(</span><span class="s">"You have an urgent task in 10s."</span><span class="p">);</span>
+	<span class="nf">sleep</span><span class="p">(</span><span class="n">waiting_time</span><span class="p">);</span>
+        <span class="nd">println!</span><span class="p">(</span><span class="s">"Be ready, it will soon happen!"</span><span class="p">);</span>
+	<span class="nf">sleep</span><span class="p">(</span><span class="n">waiting_time</span><span class="p">);</span>
+        <span class="nd">println!</span><span class="p">(</span><span class="s">"Finish everything else, the task is more important!!"</span><span class="p">);</span>
+	<span class="nf">sleep</span><span class="p">(</span><span class="n">waiting_time</span><span class="p">);</span>
+        <span class="nd">println!</span><span class="p">(</span><span class="s">"It is URGENT!!!"</span><span class="p">);</span>
+	<span class="nf">sleep</span><span class="p">(</span><span class="n">waiting_time</span><span class="p">);</span>
+        <span class="nd">println!</span><span class="p">(</span><span class="s">"IT IS HAPPENING!!!!"</span><span class="p">);</span>
+	<span class="nf">sleep</span><span class="p">(</span><span class="n">waiting_time</span><span class="p">);</span>
+        <span class="nd">println!</span><span class="p">(</span><span class="s">"DO IT!!!!!"</span><span class="p">);</span>
+    <span class="p">}</span>
+    <span class="k">else</span> <span class="p">{</span>
+        <span class="nd">println!</span><span class="p">(</span><span class="s">"You have a task in 10s."</span><span class="p">);</span>
+	<span class="nf">sleep</span><span class="p">(</span><span class="n">waiting_time</span><span class="p">);</span>
+        <span class="nd">println!</span><span class="p">(</span><span class="s">"Do not worry, you still have time."</span><span class="p">);</span>
+	<span class="nf">sleep</span><span class="p">(</span><span class="n">waiting_time</span><span class="p">);</span>
+        <span class="nd">println!</span><span class="p">(</span><span class="s">"It is slowly arriving, prepare yourself."</span><span class="p">);</span>
+	<span class="nf">sleep</span><span class="p">(</span><span class="n">waiting_time</span><span class="p">);</span>
+        <span class="nd">println!</span><span class="p">(</span><span class="s">"The task is coming."</span><span class="p">);</span>
+	<span class="nf">sleep</span><span class="p">(</span><span class="n">waiting_time</span><span class="p">);</span>
+        <span class="nd">println!</span><span class="p">(</span><span class="s">"Finish everything else, it is here."</span><span class="p">);</span>
+	<span class="nf">sleep</span><span class="p">(</span><span class="n">waiting_time</span><span class="p">);</span>
+        <span class="nd">println!</span><span class="p">(</span><span class="s">"Do the task."</span><span class="p">);</span>        
+    <span class="p">}</span>
+<span class="p">}</span></code></pre></figure>
+
+<p>This example was very instructive. When programming it is really important to decompose the task our program should perform into subtasks. In our case the program had to first verify if it was urgent or not and then, depending on the result, execute one set of instructions or another. Programming is like building a castle brick by brick. You do not need to put everything together directly. Instead, you can simply beginning by one wall, then another one, until everything is done. The important part is to have a clear vision of the whole architecture in your mind.</p>
+
+<p>Another important thing we have seen is the use of the documentation. It is normal to not know everything by heart. Reading documentations or googling problems is a daily part of a programmer life, do not feel ashamed to not know something!</p>
+
+<h2 id="exercises">Exercises</h2>
+
+<p>1) Until now, we have seen multiple keywords. What happens when we choose a variable name to be the same as a keyword (like <strong>let</strong>, <strong>if</strong>, …)?</p>
+
+<p>2) Write a program that prints for each digit its spelling. For example, if the digit is 1 then the program should print “one”. To do it, write a long list of <em>else if</em> expression.</p>
+
+<p>3) Prime number test</p>
+<ul>
+  <li>What does being even for an integer means? Could you find a condition to test to verify it?</li>
+  <li>Try to write a program with a minimum number of <em>if</em>/<em>else if</em>/<em>else</em> expressions outputing if a number is a prime number or not. The input numbers will be positive integers less than 100.</li>
+</ul>
+
+<p>4) Change the task reminder program to make it depend on a number symbolizing the urgency of the task. For example, non urgent could be 0, urgent 1 and extremely urgent 2.</p>
+
+<h2 id="conclusion">Conclusion</h2>
+
+<p>This post was pretty long, but we made an interesting program! We learned about the <em>if</em>/<em>else if</em>/<em>else</em> expressions and how to use them with booleans. Also, we used them to code a task reminder warning the user that a task will soon arrive. To do it we discovered a little bit about the standard library. In the next post, we will once again talk about variables and learn how to make them change values. We will also discover how to make a program repeat some instructions in a loop.</p>
+
+  </div><a class="u-url" href="/2018/12/31/rust-for-total-beginners-4.html" hidden></a>
+</article>
+
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/"></data>
+
+  <div class="wrapper">
+
+    <h2 class="footer-heading">Miso and Raclette programming</h2>
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col footer-col-1">
+        <ul class="contact-list">
+          <li class="p-name">Miso and Raclette programming</li></ul>
+      </div>
+
+      <div class="footer-col footer-col-2"><ul class="social-media-list"><li><a href="https://github.com/misoraclette"><svg class="svg-icon"><use xlink:href="/assets/minima-social-icons.svg#github"></use></svg> <span class="username">misoraclette</span></a></li></ul>
+</div>
+
+      <div class="footer-col footer-col-3">
+        <p>This blog is mostly about scientific programming. My goal is to write about anything I think is useful but may not have yet a clear documentation.</p>
+      </div>
+    </div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>
